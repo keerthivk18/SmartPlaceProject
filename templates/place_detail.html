@@ -1,0 +1,1513 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ place.name }} | Smart Place</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+      /* ===== SMARTPLACE PLACE DETAILS UI ===== */
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f3f6fb;
+        color: #1e293b;
+        font-family: "Segoe UI", Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      header {
+        background: #ffffff;
+        border-bottom: 1px solid #e6ebf2;
+        padding: 18px 0;
+        box-shadow: 0 3px 15px rgba(15, 23, 42, 0.04);
+      }
+
+      header h2 {
+        margin: 0;
+        color: #2563eb;
+        font-size: 25px;
+        font-weight: 800;
+      }
+
+      .container {
+        width: min(1200px, 92%);
+        margin: auto;
+      }
+
+      .detail-page {
+        padding: 30px 0 65px;
+      }
+
+      .detail-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 22px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.2s;
+      }
+
+      .detail-back:hover {
+        color: #1d4ed8;
+        transform: translateX(-3px);
+      }
+
+      /* Place banner */
+
+      .place-header {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1e40af, #2563eb, #60a5fa);
+        color: white;
+        padding: 48px 42px;
+        border-radius: 24px;
+        margin-bottom: 28px;
+        box-shadow: 0 15px 35px rgba(37, 99, 235, 0.18);
+      }
+
+      .place-header::after {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        right: -80px;
+        top: -110px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      .place-header h1 {
+        position: relative;
+        z-index: 1;
+        margin: 0 0 12px;
+        font-size: clamp(30px, 4vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+
+      .place-category {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        font-size: 16px;
+        color: #eaf2ff;
+      }
+
+      .place-intro {
+        position: relative;
+        z-index: 1;
+        margin-top: 18px;
+        max-width: 760px;
+        line-height: 1.8;
+        color: #eff6ff;
+        font-size: 16px;
+      }
+
+      /* Main cards */
+
+      .detail-card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #e8edf5;
+        box-shadow: 0 7px 25px rgba(15, 23, 42, 0.045);
+        transition:
+          box-shadow 0.25s,
+          transform 0.25s;
+      }
+
+      .detail-card:hover {
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.075);
+      }
+
+      .detail-card h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 24px;
+        color: #172554;
+        font-size: 23px;
+        font-weight: 750;
+      }
+
+      /* About section */
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .info-item {
+        background: #f6f8fc;
+        border: 1px solid #edf1f7;
+        padding: 18px;
+        border-radius: 14px;
+        min-width: 0;
+      }
+
+      .info-item strong {
+        display: block;
+        color: #64748b;
+        margin-bottom: 7px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .info-item span {
+        color: #1e293b;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+      }
+
+      .description-box {
+        margin-top: 18px;
+        background: #eff6ff;
+        border: 1px solid #dbeafe;
+        padding: 22px;
+        border-radius: 14px;
+        color: #334155;
+        line-height: 1.9;
+      }
+
+      /* Weather */
+
+      .weather-card {
+        background: linear-gradient(145deg, #eaf3ff, #ffffff 75%);
+      }
+
+      .weather-main {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 26px;
+        padding: 10px 4px;
+      }
+
+      .weather-icon {
+        font-size: 66px;
+      }
+
+      .weather-temperature {
+        font-size: clamp(34px, 5vw, 48px);
+        font-weight: 800;
+        color: #1d4ed8;
+        line-height: 1.2;
+      }
+
+      .weather-condition {
+        color: #64748b;
+        font-size: 17px;
+        margin-top: 8px;
+      }
+
+      .weather-details {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .weather-detail-item {
+        background: rgba(255, 255, 255, 0.92);
+        padding: 20px;
+        border: 1px solid #e5edf8;
+        border-radius: 15px;
+      }
+
+      .weather-detail-item strong {
+        display: block;
+        margin-bottom: 8px;
+        color: #475569;
+        font-size: 14px;
+      }
+
+      .weather-detail-item span {
+        color: #1e40af;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      /* Map */
+
+      .map-container {
+        overflow: hidden;
+        border-radius: 17px;
+        border: 1px solid #e2e8f0;
+      }
+
+      #place-map {
+        width: 100%;
+        height: 430px;
+      }
+
+      .map-actions {
+        margin-top: 20px;
+      }
+
+      .map-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 23px;
+        background: #2563eb;
+        color: white !important;
+        text-decoration: none !important;
+        border: 0;
+        border-radius: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .map-button:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+      }
+
+      .map-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* Nearby services */
+
+      .service-categories {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .service-categories a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 66px;
+        padding: 14px 10px;
+        background: #f6f8fc;
+        border: 1px solid #e8edf5;
+        color: #334155;
+        text-decoration: none;
+        border-radius: 14px;
+        font-weight: 650;
+        text-align: center;
+        transition: 0.2s;
+      }
+
+      .service-categories a:hover {
+        background: #eff6ff;
+        border-color: #93c5fd;
+        color: #1d4ed8;
+        transform: translateY(-3px);
+        box-shadow: 0 7px 16px rgba(37, 99, 235, 0.08);
+      }
+
+      /* Parking */
+
+      .parking-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .parking-item {
+        background: #f0fdf4;
+        border: 1px solid #dcfce7;
+        padding: 24px;
+        border-radius: 15px;
+      }
+
+      .parking-item strong {
+        display: block;
+        color: #64748b;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .parking-item span {
+        font-size: 30px;
+        font-weight: 800;
+        color: #15803d;
+      }
+
+      /* Facilities */
+
+      .facility-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .facility-item {
+        padding: 11px 17px;
+        background: #eff6ff;
+        border: 1px solid #dbeafe;
+        color: #1d4ed8;
+        border-radius: 30px;
+        font-weight: 650;
+        font-size: 14px;
+      }
+
+      /* Announcements */
+
+      .announcement-item {
+        padding: 17px 20px;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-left: 5px solid #f59e0b;
+        border-radius: 12px;
+        margin-bottom: 13px;
+        color: #78350f;
+      }
+
+      /* Empty messages */
+
+      .detail-card p {
+        color: #64748b;
+      }
+
+      /* Responsive layout */
+
+      @media (max-width: 900px) {
+        .service-categories {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .weather-details {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 600px) {
+        .detail-page {
+          padding-top: 20px;
+        }
+
+        .place-header {
+          padding: 30px 24px;
+          border-radius: 18px;
+        }
+
+        .detail-card {
+          padding: 22px 18px;
+          border-radius: 16px;
+        }
+
+        .detail-card h2 {
+          font-size: 20px;
+        }
+
+        .about-grid,
+        .parking-grid,
+        .weather-details {
+          grid-template-columns: 1fr;
+        }
+
+        .service-categories {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .weather-main {
+          gap: 16px;
+        }
+
+        .weather-icon {
+          font-size: 50px;
+        }
+
+        #place-map {
+          height: 330px;
+        }
+      }
+      /* Location & Directions UI */
+      .directions-card {
+        padding: 28px;
+        border: 1px solid #dce7f5;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 8px 28px rgba(25, 55, 100, 0.06);
+      }
+
+      .directions-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .directions-heading h2 {
+        margin: 0 0 8px;
+        color: #173b7a;
+        font-size: 25px;
+      }
+
+      .directions-heading p {
+        margin: 0;
+        color: #718096;
+        font-size: 14px;
+      }
+
+      .directions-badge {
+        padding: 10px 16px;
+        border-radius: 30px;
+        background: #edf4ff;
+        color: #245bd5;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .directions-box {
+        padding: 24px;
+        border-radius: 16px;
+        background: #f5f8fd;
+        border: 1px solid #e2eaf5;
+        margin-bottom: 22px;
+      }
+
+      .direction-row {
+        margin-bottom: 20px;
+      }
+
+      .direction-row label {
+        display: block;
+        margin-bottom: 9px;
+        font-weight: 600;
+        color: #263d60;
+        font-size: 14px;
+      }
+
+      .direction-row input {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 48px;
+        padding: 12px 15px;
+        border: 1px solid #d3dfef;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #1f2937;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .direction-row input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      .from-controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .from-controls input {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .location-btn,
+      .map-button {
+        min-height: 46px;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .location-btn {
+        background: #e4edff;
+        color: #245bd5;
+        white-space: nowrap;
+      }
+
+      .location-btn:hover {
+        background: #d3e2ff;
+      }
+
+      .map-actions {
+        margin-top: 8px;
+      }
+
+      .map-button {
+        background: linear-gradient(135deg, #2456d9, #397ef2);
+        color: white;
+        box-shadow: 0 5px 12px rgba(37, 99, 235, 0.18);
+      }
+
+      .map-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 7px 16px rgba(37, 99, 235, 0.25);
+      }
+
+      .directions-status {
+        margin: 12px 0 0;
+        color: #526784;
+        font-size: 14px;
+      }
+
+      .directions-map {
+        overflow: hidden;
+        border-radius: 16px;
+        border: 1px solid #dce5f2;
+        margin-bottom: 22px;
+      }
+
+      .directions-map #place-map {
+        width: 100%;
+        height: 420px;
+      }
+
+      .route-result {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .route-info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border: 1px solid #dce7f5;
+        border-radius: 14px;
+        background: #f7faff;
+      }
+
+      .route-info-item span {
+        color: #687c98;
+        font-size: 13px;
+      }
+
+      .route-info-item strong {
+        color: #245bd5;
+        font-size: 20px;
+      }
+
+      @media (max-width: 700px) {
+        .directions-card {
+          padding: 18px;
+        }
+
+        .from-controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .location-btn {
+          width: 100%;
+        }
+
+        .route-result {
+          grid-template-columns: 1fr;
+        }
+
+        .directions-map #place-map {
+          height: 300px;
+        }
+      }
+      /* Facilities Available UI */
+      .facilities-card {
+        padding: 28px;
+        border: 1px solid #dce7f5;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 8px 28px rgba(25, 55, 100, 0.06);
+      }
+
+      .facilities-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .facilities-heading h2 {
+        margin: 0 0 8px;
+        color: #173b7a;
+        font-size: 25px;
+      }
+
+      .facilities-heading p {
+        margin: 0;
+        color: #718096;
+        font-size: 14px;
+      }
+
+      .facilities-badge {
+        padding: 10px 16px;
+        border-radius: 30px;
+        background: #edf4ff;
+        color: #245bd5;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .facility-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+      }
+
+      .facility-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px;
+        border: 1px solid #dce7f5;
+        border-radius: 14px;
+        background: #f7faff;
+        color: #263d60;
+        font-size: 15px;
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+
+      .facility-item:hover {
+        transform: translateY(-3px);
+        border-color: #a9c8ff;
+        background: #edf4ff;
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.08);
+      }
+
+      .facility-check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: #dcfce7;
+        color: #15803d;
+        font-weight: 700;
+      }
+
+      .facility-name {
+        overflow-wrap: anywhere;
+      }
+
+      .facility-empty {
+        grid-column: 1 / -1;
+        padding: 35px 20px;
+        text-align: center;
+        border: 1px dashed #cbd9ec;
+        border-radius: 16px;
+        background: #f7faff;
+      }
+
+      .facility-empty-icon {
+        font-size: 35px;
+        margin-bottom: 12px;
+      }
+
+      .facility-empty h3 {
+        margin: 0 0 8px;
+        color: #263d60;
+        font-size: 18px;
+      }
+
+      .facility-empty p {
+        margin: 0;
+        color: #718096;
+        font-size: 14px;
+      }
+
+      @media (max-width: 600px) {
+        .facilities-card {
+          padding: 18px;
+        }
+
+        .facility-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h2>Smart Place</h2>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="detail-page">
+        <!-- BACK -->
+
+        <a href="{% url 'home' %}" class="detail-back"> ← Back to Home </a>
+
+        <!-- =========================================
+         PLACE HEADER
+         ========================================= -->
+
+        <section class="place-header">
+          <h1>{{ place.name }}</h1>
+
+          <p class="place-category">{{ place.category }} • {{ place.city }}</p>
+
+          <p class="place-intro">
+            Explore important information about this place including weather,
+            location, facilities, parking and nearby services.
+          </p>
+        </section>
+      
+
+        <!-- =========================================
+         ABOUT
+         ========================================= -->
+
+        <section class="detail-card">
+          <h2>📍 About This Place</h2>
+<div class="about-grid">
+    <div class="info-item">
+        <strong>Address</strong>
+        <span>
+            {{ place.address|default:"Information unavailable" }}
+        </span>
+    </div>
+</div>
+
+<div class="about-description">
+    <strong>About:</strong>
+    <p>{{ place.description|default:"Information unavailable" }}</p>
+</div>
+        <!-- =========================================
+         WEATHER
+         ========================================= -->
+
+        <section class="detail-card weather-card">
+          <h2>🌤️ Current Weather</h2>
+
+          {% if weather %}
+
+          <div class="weather-main">
+            <div class="weather-icon">{{ weather.icon }}</div>
+
+            <div>
+              <div class="weather-temperature">
+                {{ weather.current.temperature_2m }}°C
+              </div>
+
+              <div class="weather-condition">{{ weather.condition }}</div>
+            </div>
+          </div>
+
+          <div class="weather-details">
+            <div class="weather-detail-item">
+              <strong> 🌡️ Feels Like </strong>
+
+              <span> {{ weather.current.apparent_temperature }}°C </span>
+            </div>
+
+            <div class="weather-detail-item">
+              <strong> 💧 Humidity </strong>
+
+              <span> {{ weather.current.relative_humidity_2m }}% </span>
+            </div>
+
+            <div class="weather-detail-item">
+              <strong> 💨 Wind Speed </strong>
+
+              <span> {{ weather.current.wind_speed_10m }} km/h </span>
+            </div>
+          </div>
+
+          {% else %}
+
+          <p>Weather information is currently unavailable.</p>
+
+          {% endif %}
+        </section>
+
+        <!-- =========================================
+         LOCATION & DIRECTIONS
+         ========================================= -->
+
+        {% if place.latitude and place.longitude %}
+
+        <section class="detail-card directions-card">
+          <div class="directions-heading">
+            <div>
+              <h2>📍 Location & Directions</h2>
+              <p>Find the best route to {{ place.name }}.</p>
+            </div>
+            <span class="directions-badge">🧭 Route Planner</span>
+          </div>
+
+          <div class="directions-box">
+            <!-- STARTING LOCATION -->
+            <div class="direction-row">
+              <label for="from-location">📍 Starting Location</label>
+
+              <div class="from-controls">
+                <input
+                  type="text"
+                  id="from-location"
+                  placeholder="Enter your starting location"
+                />
+
+                <button
+                  type="button"
+                  id="current-location-btn"
+                  class="location-btn"
+                >
+                  📍 Use Current Location
+                </button>
+              </div>
+            </div>
+
+            <!-- DESTINATION -->
+            <div class="direction-row">
+              <label for="to-location">🏁 Destination</label>
+
+              <input
+                type="text"
+                id="to-location"
+                value="{{ place.name }}"
+                placeholder="Enter destination"
+              />
+            </div>
+
+            <div class="map-actions">
+              <button type="button" id="get-directions-btn" class="map-button">
+                🧭 Get Directions
+              </button>
+            </div>
+
+            <p id="directions-status" class="directions-status"></p>
+          </div>
+
+          <!-- MAP -->
+          <div class="map-container directions-map">
+            <div
+              id="place-map"
+              data-lat="{{ place.latitude }}"
+              data-lng="{{ place.longitude }}"
+              data-name="{{ place.name }}"
+            ></div>
+          </div>
+
+          <!-- ROUTE DETAILS -->
+          <div id="route-result" class="route-result">
+            <div class="route-info-item">
+              <span>📏 Distance</span>
+              <strong id="direction-distance">-</strong>
+            </div>
+
+            <div class="route-info-item">
+              <span>⏱️ Travel Time</span>
+              <strong id="direction-duration">-</strong>
+            </div>
+
+            <div class="route-info-item">
+              <span>🚗 Travel Mode</span>
+              <strong>Driving</strong>
+            </div>
+          </div>
+        </section>
+
+        {% endif %}
+        <!-- =========================================
+         NEARBY SERVICES
+         ========================================= -->
+
+        <section class="detail-card">
+          <h2>🧭 Nearby Services</h2>
+
+          <div class="service-categories">
+            <a href="{% url 'nearby_services' place.id 'hotel' %}">
+              🏨 Hotels
+            </a>
+
+            <a href="{% url 'nearby_services' place.id 'restaurant' %}">
+              🍴 Restaurants
+            </a>
+
+            <a href="{% url 'nearby_services' place.id 'fuel' %}"> ⛽ Fuel </a>
+
+            <a href="{% url 'nearby_services' place.id 'hospital' %}">
+              🏥 Hospitals
+            </a>
+
+            <a href="{% url 'nearby_services' place.id 'bank' %}"> 🏦 Banks </a>
+
+            <a href="{% url 'nearby_services' place.id 'cafe' %}"> ☕ Cafes </a>
+
+            <a href="{% url 'nearby_services' place.id 'grocery' %}">
+              🛒 Groceries
+            </a>
+
+            <a href="{% url 'nearby_services' place.id 'pharmacy' %}">
+              💊 Pharmacies
+            </a>
+
+            <a href="{% url 'nearby_services' place.id 'transport' %}">
+              🚉 Transport
+            </a>
+          </div>
+        </section>
+
+        <!-- =========================================
+         PARKING
+         ========================================= -->
+
+        {% if place.parking %}
+
+        <section class="detail-card">
+          <h2>🅿️ Parking Information</h2>
+
+          <div class="parking-grid">
+            <div class="parking-item">
+              <strong> Total Parking Slots </strong>
+
+              <span>
+                {{ place.parking.total_slots|default:"Not updated" }}
+              </span>
+            </div>
+
+            <div class="parking-item">
+              <strong> Available Parking Slots </strong>
+
+              <span>
+                {{ place.parking.available_slots|default:"Not updated" }}
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {% else %}
+        <section class="detail-card">
+          <h2>🅿️ Parking Information</h2>
+          <p>Parking information is not available for this place yet.</p>
+        </section>
+        {% endif %}
+
+        <!-- =========================================
+         FACILITIES
+         ========================================= -->
+
+        <section class="detail-card facilities-card">
+          <div class="facilities-heading">
+            <div>
+              <h2>✨ Facilities Available</h2>
+              <p>Explore the facilities available at this place.</p>
+            </div>
+            <span class="facilities-badge">🏢 Amenities</span>
+          </div>
+
+          <div class="facility-list">
+            {% for facility in place.facilities.all %}
+
+            <div class="facility-item">
+              <span class="facility-check">✓</span>
+              <span class="facility-name">{{ facility.name }}</span>
+            </div>
+
+            {% empty %}
+
+            <div class="facility-empty">
+              <div class="facility-empty-icon">✨</div>
+              <h3>No facilities added yet</h3>
+              <p>Facility information will appear here when available.</p>
+            </div>
+
+            {% endfor %}
+          </div>
+        </section>
+        <!-- =========================================
+         ANNOUNCEMENTS
+         ========================================= -->
+
+        <section class="detail-card">
+          <h2>📢 Announcements</h2>
+
+          {% for announcement in place.announcements.all %}
+
+          <div class="announcement-item">{{ announcement.message }}</div>
+
+          {% empty %}
+
+          <p>No announcements available.</p>
+
+          {% endfor %}
+        </section>
+      </div>
+    </main>
+
+    <!-- =========================================
+     LEAFLET
+     ========================================= -->
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+      const mapElement = document.getElementById("place-map");
+
+      const fromInput = document.getElementById("from-location");
+
+      const toInput = document.getElementById("to-location");
+
+      const currentBtn = document.getElementById("current-location-btn");
+
+      const directionsBtn = document.getElementById("get-directions-btn");
+
+      const status = document.getElementById("directions-status");
+
+      const result = document.getElementById("route-result");
+
+      const distanceOutput = document.getElementById("direction-distance");
+
+      const durationOutput = document.getElementById("direction-duration");
+
+      let map = null;
+      let startMarker = null;
+      let endMarker = null;
+      let accuracyCircle = null;
+      let routeLayer = null;
+      let currentPosition = null;
+
+      if (mapElement) {
+        const placeLat = Number(mapElement.dataset.lat);
+
+        const placeLon = Number(mapElement.dataset.lng);
+
+        const placeName = mapElement.dataset.name;
+
+        // =========================================
+        // CREATE MAP
+        // =========================================
+
+        map = L.map("place-map").setView([placeLat, placeLon], 15);
+
+        // =========================================
+        // MAP TILES
+        // =========================================
+
+        L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+
+          attribution: "&copy; OpenStreetMap contributors, Tiles style by HOT",
+        }).addTo(map);
+
+        // =========================================
+        // PLACE MARKER
+        // =========================================
+
+        const selectedPlaceMarker = L.marker([placeLat, placeLon]).addTo(map);
+
+        selectedPlaceMarker
+          .bindPopup(`<strong>${placeName}</strong>`)
+          .openPopup();
+
+        // =========================================
+        // PARSE COORDINATES
+        // =========================================
+
+        function parseCoords(value) {
+          const match = value
+            .trim()
+            .match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
+
+          if (!match) {
+            return null;
+          }
+
+          const lat = Number(match[1]);
+
+          const lon = Number(match[2]);
+
+          if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+            return null;
+          }
+
+          return {
+            lat: lat,
+            lon: lon,
+          };
+        }
+
+        // =========================================
+        // SEARCH LOCATION NAME
+        // =========================================
+
+        async function locate(text) {
+          const value = text.trim();
+
+          if (!value) {
+            throw new Error("Please enter a location.");
+          }
+
+          // -----------------------------------------
+          // 1. Direct latitude, longitude
+          // -----------------------------------------
+
+          const coordinates = parseCoords(value);
+
+          if (coordinates) {
+            return coordinates;
+          }
+
+          // -----------------------------------------
+          // 2. Current selected place
+          // -----------------------------------------
+
+          if (value.toLowerCase() === placeName.trim().toLowerCase()) {
+            return {
+              lat: placeLat,
+              lon: placeLon,
+            };
+          }
+
+          // -----------------------------------------
+          // 3. Search through Django backend
+          // -----------------------------------------
+
+          const query = new URLSearchParams({
+            q: value,
+          });
+
+          const response = await fetch("{% url 'geocode' %}?" + query);
+
+          let data;
+
+          try {
+            data = await response.json();
+          } catch (error) {
+            throw new Error(
+              "Location search service returned an invalid response.",
+            );
+          }
+
+          if (!response.ok) {
+            throw new Error(data.error || "Location could not be found.");
+          }
+
+          if (typeof data.lat !== "number" || typeof data.lon !== "number") {
+            throw new Error("Invalid coordinates received for " + value);
+          }
+
+          return {
+            lat: data.lat,
+            lon: data.lon,
+          };
+        }
+
+        // =========================================
+        // CURRENT LOCATION
+        // =========================================
+
+        if (currentBtn) {
+          currentBtn.addEventListener("click", () => {
+            if (!navigator.geolocation) {
+              status.textContent =
+                "❌ Your browser does not support location access.";
+
+              return;
+            }
+
+            currentBtn.disabled = true;
+
+            status.textContent = "📍 Requesting your device location...";
+
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const lat = position.coords.latitude;
+
+                const lon = position.coords.longitude;
+
+                const accuracy = position.coords.accuracy;
+
+                currentPosition = {
+                  lat: lat,
+                  lon: lon,
+                };
+
+                // Put coordinates in From field
+
+                fromInput.value = lat.toFixed(6) + ", " + lon.toFixed(6);
+
+                // Remove previous marker
+
+                if (startMarker) {
+                  map.removeLayer(startMarker);
+                }
+
+                if (accuracyCircle) {
+                  map.removeLayer(accuracyCircle);
+                }
+
+                // Current location marker
+
+                startMarker = L.circleMarker([lat, lon], {
+                  radius: 9,
+                  color: "#ffffff",
+                  weight: 3,
+                  fillColor: "#1976d2",
+                  fillOpacity: 1,
+                }).addTo(map);
+
+                startMarker.bindPopup(
+                  "<strong>📍 Your Current Location</strong>",
+                );
+
+                // Accuracy circle
+
+                accuracyCircle = L.circle([lat, lon], {
+                  radius: accuracy,
+                  color: "#1976d2",
+                  fillColor: "#1976d2",
+                  fillOpacity: 0.08,
+                }).addTo(map);
+
+                // Show both locations
+
+                map.fitBounds(
+                  L.latLngBounds([
+                    [lat, lon],
+                    [placeLat, placeLon],
+                  ]),
+                  {
+                    padding: [35, 35],
+                  },
+                );
+
+                status.textContent =
+                  "📍 Location found. Accuracy approximately " +
+                  Math.round(accuracy) +
+                  " m. Click Get Directions.";
+
+                currentBtn.disabled = false;
+              },
+
+              (error) => {
+                const messages = {
+                  1: "❌ Location permission denied. Allow location in your browser settings.",
+
+                  2: "❌ Device location unavailable. You can enter a starting place instead.",
+
+                  3: "❌ Location request timed out. Try again or enter a starting place.",
+                };
+
+                status.textContent =
+                  messages[error.code] || "❌ Unable to get current location.";
+
+                currentBtn.disabled = false;
+              },
+
+              {
+                enableHighAccuracy: true,
+
+                timeout: 15000,
+
+                maximumAge: 0,
+              },
+            );
+          });
+        }
+
+        // =========================================
+        // GET DIRECTIONS
+        // =========================================
+
+        directionsBtn.addEventListener("click", async () => {
+          const fromText = fromInput.value.trim();
+
+          const toText = toInput.value.trim();
+
+          if (!fromText || !toText) {
+            status.textContent =
+              "❌ Enter both From and To, or use Current Location.";
+
+            return;
+          }
+
+          directionsBtn.disabled = true;
+
+          result.style.display = "none";
+
+          status.textContent = "🧭 Finding locations...";
+
+          try {
+            // =====================================
+            // FIND START
+            // =====================================
+
+            let from;
+
+            const currentText = currentPosition
+              ? currentPosition.lat.toFixed(6) +
+                ", " +
+                currentPosition.lon.toFixed(6)
+              : "";
+
+            if (currentPosition && fromText === currentText) {
+              from = currentPosition;
+            } else {
+              from = await locate(fromText);
+            }
+
+            // =====================================
+            // FIND DESTINATION
+            // =====================================
+
+            const to = await locate(toText);
+
+            status.textContent = "🧭 Calculating driving route...";
+
+            // =====================================
+            // ROUTE API
+            // =====================================
+
+            const params = new URLSearchParams({
+              start_lat: from.lat,
+
+              start_lon: from.lon,
+
+              end_lat: to.lat,
+
+              end_lon: to.lon,
+
+              profile: "driving-car",
+            });
+
+            const response = await fetch("{% url 'route_api' %}?" + params);
+
+            if (!response.ok) {
+              throw new Error("Could not calculate a driving route.");
+            }
+
+            const data = await response.json();
+
+            if (!data.routes || !data.routes.length) {
+              throw new Error("No driving route found.");
+            }
+
+            const route = data.routes[0];
+
+            // =====================================
+            // REMOVE OLD ROUTE
+            // =====================================
+
+            if (routeLayer) {
+              map.removeLayer(routeLayer);
+            }
+
+            if (startMarker) {
+              map.removeLayer(startMarker);
+
+              startMarker = null;
+            }
+
+            if (endMarker) {
+              map.removeLayer(endMarker);
+
+              endMarker = null;
+            }
+
+            if (accuracyCircle) {
+              map.removeLayer(accuracyCircle);
+
+              accuracyCircle = null;
+            }
+
+            // =====================================
+            // DRAW ROUTE
+            // =====================================
+
+            routeLayer = L.geoJSON(route.geometry, {
+              style: {
+                color: "#2878ed",
+                weight: 6,
+                opacity: 0.9,
+              },
+            }).addTo(map);
+
+            // =====================================
+            // START MARKER
+            // =====================================
+
+            startMarker = L.marker([from.lat, from.lon])
+              .addTo(map)
+              .bindPopup("📍 Start");
+
+            // =====================================
+            // DESTINATION MARKER
+            // =====================================
+
+            endMarker = L.marker([to.lat, to.lon])
+              .addTo(map)
+              .bindPopup("📍 Destination");
+
+            // =====================================
+            // DISTANCE
+            // =====================================
+
+            const km = (route.summary.distance / 1000).toFixed(2);
+
+            // =====================================
+            // TIME
+            // =====================================
+
+            const mins = Math.max(1, Math.round(route.summary.duration / 60));
+
+            distanceOutput.textContent = km + " km";
+
+            durationOutput.textContent = mins + " min";
+
+            result.style.display = "grid";
+
+            status.textContent =
+              "✅ Route calculated. Driving may end at the nearest accessible road.";
+
+            // =====================================
+            // FIT MAP
+            // =====================================
+
+            const bounds = routeLayer.getBounds();
+
+            bounds.extend([from.lat, from.lon]);
+
+            bounds.extend([to.lat, to.lon]);
+
+            map.fitBounds(bounds, {
+              padding: [35, 35],
+            });
+          } catch (error) {
+            console.error("Directions:", error);
+
+            status.textContent =
+              "❌ " + (error.message || "Unable to calculate directions.");
+          } finally {
+            directionsBtn.disabled = false;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Create Account | SmartPlace</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      /* =================================================
+           MAIN MAP BACKGROUND
+           ================================================= */
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+
+        min-height: 100vh;
+
+        color: white;
+
+        overflow-x: hidden;
+
+        position: relative;
+
+        background:
+          radial-gradient(
+            circle at 12% 15%,
+            rgba(59, 130, 246, 0.28),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 88% 20%,
+            rgba(96, 165, 250, 0.2),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 70% 90%,
+            rgba(37, 99, 235, 0.2),
+            transparent 32%
+          ),
+          linear-gradient(
+            135deg,
+            #07152f 0%,
+            #0b2550 45%,
+            #123f82 75%,
+            #071a38 100%
+          );
+      }
+
+      /* =================================================
+           MAP ROADS
+           ================================================= */
+
+      body::before {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: 0;
+
+        opacity: 0.28;
+
+        background-image:
+          linear-gradient(
+            12deg,
+            transparent 0%,
+            transparent 47%,
+            rgba(191, 219, 254, 0.16) 48%,
+            rgba(191, 219, 254, 0.16) 49%,
+            transparent 50%,
+            transparent 100%
+          ),
+          linear-gradient(
+            145deg,
+            transparent 0%,
+            transparent 46%,
+            rgba(191, 219, 254, 0.12) 47%,
+            rgba(191, 219, 254, 0.12) 48%,
+            transparent 49%,
+            transparent 100%
+          ),
+          linear-gradient(
+            78deg,
+            transparent 0%,
+            transparent 49%,
+            rgba(147, 197, 253, 0.09) 50%,
+            transparent 51%,
+            transparent 100%
+          );
+
+        background-size:
+          420px 250px,
+          360px 300px,
+          500px 380px;
+      }
+
+      /* =================================================
+           ROAD DETAILS
+           ================================================= */
+
+      body::after {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: 0;
+
+        opacity: 0.16;
+
+        background: repeating-linear-gradient(
+          25deg,
+          transparent 0px,
+          transparent 95px,
+          rgba(255, 255, 255, 0.18) 96px,
+          rgba(255, 255, 255, 0.18) 97px,
+          transparent 98px,
+          transparent 190px
+        );
+      }
+
+      /* =================================================
+           MAP DOTS
+           ================================================= */
+
+      .map-dot {
+        position: fixed;
+
+        width: 9px;
+
+        height: 9px;
+
+        border-radius: 50%;
+
+        background: #60a5fa;
+
+        box-shadow:
+          0 0 0 7px rgba(96, 165, 250, 0.1),
+          0 0 20px rgba(96, 165, 250, 0.55);
+
+        z-index: 1;
+      }
+
+      .dot-1 {
+        top: 18%;
+        left: 8%;
+      }
+
+      .dot-2 {
+        top: 35%;
+        left: 28%;
+      }
+
+      .dot-3 {
+        top: 72%;
+        left: 12%;
+      }
+
+      .dot-4 {
+        top: 22%;
+        right: 20%;
+      }
+
+      .dot-5 {
+        bottom: 18%;
+        right: 28%;
+      }
+
+      /* =================================================
+           ROUTE 1
+           ================================================= */
+
+      .route-line {
+        position: fixed;
+
+        width: 430px;
+
+        height: 190px;
+
+        left: 3%;
+
+        bottom: 9%;
+
+        border-left: 2px dashed rgba(147, 197, 253, 0.38);
+
+        border-bottom: 2px dashed rgba(147, 197, 253, 0.38);
+
+        border-radius: 0 0 0 190px;
+
+        transform: rotate(-8deg);
+
+        z-index: 1;
+      }
+
+      .route-line::after {
+        content: "📍";
+
+        position: absolute;
+
+        right: -11px;
+
+        bottom: -16px;
+
+        font-size: 27px;
+
+        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.25));
+      }
+
+      /* =================================================
+           ROUTE 2
+           ================================================= */
+
+      .route-two {
+        position: fixed;
+
+        width: 380px;
+
+        height: 170px;
+
+        right: 3%;
+
+        top: 13%;
+
+        border-right: 2px dashed rgba(147, 197, 253, 0.28);
+
+        border-top: 2px dashed rgba(147, 197, 253, 0.28);
+
+        border-radius: 0 180px 0 0;
+
+        transform: rotate(8deg);
+
+        z-index: 1;
+      }
+
+      .route-two::after {
+        content: "📍";
+
+        position: absolute;
+
+        left: -12px;
+
+        bottom: -15px;
+
+        font-size: 24px;
+
+        opacity: 0.75;
+      }
+
+      /* =================================================
+           HEADER
+           ================================================= */
+
+      .top-header {
+        height: 76px;
+
+        background: transparent;
+
+        display: flex;
+
+        align-items: center;
+
+        padding: 0 52px;
+
+        position: relative;
+
+        z-index: 2;
+      }
+
+      .brand {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        font-size: 25px;
+
+        font-weight: 700;
+
+        color: white;
+      }
+
+      .brand-icon {
+        width: 40px;
+
+        height: 40px;
+
+        border-radius: 11px;
+
+        background: rgba(255, 255, 255, 0.1);
+
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 21px;
+      }
+
+      /* =================================================
+           MAIN
+           ================================================= */
+
+      .main-container {
+        min-height: calc(100vh - 76px);
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        padding: 45px 20px 30px;
+
+        position: relative;
+
+        z-index: 2;
+      }
+
+      /* =================================================
+           INTRO
+           ================================================= */
+
+      .intro {
+        text-align: center;
+
+        max-width: 720px;
+
+        margin-bottom: 27px;
+
+        color: white;
+      }
+
+      .intro h1 {
+        font-size: 38px;
+
+        line-height: 1.2;
+
+        margin-bottom: 10px;
+
+        color: white;
+      }
+
+      .intro h1 span {
+        color: #5da4ff;
+      }
+
+      .intro p {
+        color: rgba(255, 255, 255, 0.82);
+
+        font-size: 15px;
+
+        line-height: 1.6;
+
+        max-width: 650px;
+
+        margin: auto;
+      }
+
+      /* =================================================
+           REGISTER CARD
+           ================================================= */
+
+      .register-card {
+        width: 100%;
+
+        max-width: 470px;
+
+        background: rgba(255, 255, 255, 0.97);
+
+        border-radius: 22px;
+
+        padding: 30px 40px 27px;
+
+        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+
+        border: 1px solid rgba(255, 255, 255, 0.65);
+      }
+
+      .card-title {
+        text-align: center;
+
+        margin-bottom: 22px;
+      }
+
+      .card-title h2 {
+        font-size: 27px;
+
+        margin-bottom: 7px;
+
+        color: #111827;
+      }
+
+      .card-title p {
+        font-size: 14px;
+
+        color: #64748b;
+      }
+
+      /* =================================================
+           FORM
+           ================================================= */
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        margin-bottom: 7px;
+
+        color: #1f2937;
+      }
+
+      .form-group input {
+        width: 100%;
+
+        height: 47px;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 10px;
+
+        padding: 0 14px;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition: 0.2s;
+
+        background: #ffffff;
+      }
+
+      .form-group input:focus {
+        border-color: #2875e8;
+
+        box-shadow: 0 0 0 3px rgba(40, 117, 232, 0.12);
+      }
+
+      .form-group input::placeholder {
+        color: #94a3b8;
+      }
+
+      /* =================================================
+           REGISTER BUTTON
+           ================================================= */
+
+      .register-button {
+        width: 100%;
+
+        height: 48px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        margin-top: 5px;
+
+        transition: 0.2s;
+
+        box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
+      }
+
+      .register-button:hover {
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+
+        transform: translateY(-1px);
+      }
+
+      /* =================================================
+           LINKS
+           ================================================= */
+
+      .login-link {
+        text-align: center;
+
+        margin-top: 18px;
+
+        color: #64748b;
+
+        font-size: 14px;
+      }
+
+      .login-link a {
+        color: #2563eb;
+
+        font-weight: 700;
+
+        text-decoration: none;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      .back-link {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 14px;
+
+        color: #64748b;
+
+        font-size: 13px;
+
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        color: #2563eb;
+      }
+
+      /* =================================================
+           FEATURES
+           ================================================= */
+
+      .features {
+        display: flex;
+
+        flex-wrap: nowrap;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-top: 25px;
+
+        width: 100%;
+
+        white-space: nowrap;
+      }
+
+      .feature {
+        background: rgba(255, 255, 255, 0.1);
+
+        border: 1px solid rgba(255, 255, 255, 0.22);
+
+        border-radius: 10px;
+
+        padding: 10px 12px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 6px;
+
+        color: rgba(255, 255, 255, 0.92);
+
+        font-size: 12px;
+
+        white-space: nowrap;
+
+        backdrop-filter: blur(5px);
+      }
+
+      .feature-icon {
+        font-size: 14px;
+      }
+
+      /* =================================================
+           TAGLINE
+           ================================================= */
+
+      .tagline {
+        margin-top: 16px;
+
+        color: rgba(255, 255, 255, 0.72);
+
+        font-size: 13px;
+
+        letter-spacing: 0.4px;
+      }
+
+      /* =================================================
+           RESPONSIVE
+           ================================================= */
+
+      @media (max-width: 900px) {
+        .features {
+          overflow-x: auto;
+
+          justify-content: flex-start;
+
+          padding: 5px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .top-header {
+          padding: 0 22px;
+        }
+
+        .brand {
+          font-size: 22px;
+        }
+
+        .main-container {
+          padding: 35px 15px 30px;
+        }
+
+        .intro h1 {
+          font-size: 30px;
+        }
+
+        .intro p {
+          font-size: 14px;
+        }
+
+        .register-card {
+          padding: 27px 23px;
+        }
+
+        .route-line,
+        .route-two {
+          opacity: 0.4;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- MAP DECORATION -->
+
+    <span class="map-dot dot-1"></span>
+
+    <span class="map-dot dot-2"></span>
+
+    <span class="map-dot dot-3"></span>
+
+    <span class="map-dot dot-4"></span>
+
+    <span class="map-dot dot-5"></span>
+
+    <div class="route-line"></div>
+
+    <div class="route-two"></div>
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+      <div class="brand">
+        <div class="brand-icon">📍</div>
+
+        SmartPlace
+      </div>
+    </header>
+
+    <!-- MAIN -->
+
+    <main class="main-container">
+      <div class="intro">
+        <h1>Join <span>SmartPlace</span></h1>
+
+        <p>
+          Create your account and discover places, check useful information,
+          plan visits and explore smarter.
+        </p>
+      </div>
+
+      <!-- REGISTER CARD -->
+
+      <div class="register-card">
+        <div class="card-title">
+          <h2>Create Account</h2>
+
+          <p>Start your smarter place discovery journey.</p>
+        </div>
+
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="username"> Username </label>
+
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Choose a username"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email"> Email </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password"> Password </label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="register-button">Create Account</button>
+        </form>
+
+        <div class="login-link">
+          Already have an account?
+
+          <a href="{% url 'login' %}"> Login </a>
+        </div>
+
+        <a href="{% url 'login' %}" class="back-link"> ← Back to SmartPlace </a>
+      </div>
+
+      <!-- FEATURES -->
+
+      <div class="features">
+        <div class="feature">
+          <span class="feature-icon"> 📍 </span>
+
+          Place Information
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🌤️ </span>
+
+          Current Weather
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🅿️ </span>
+
+          Parking
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🏨 </span>
+
+          Nearby Services
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🧭 </span>
+
+          Routes & Directions
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🗺️ </span>
+
+          Save Trips
+        </div>
+      </div>
+
+      <div class="tagline">Search · Discover · Plan · Visit smarter</div>
+    </main>
+  </body>
+</html>

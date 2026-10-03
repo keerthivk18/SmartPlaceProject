@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | SmartPlace</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+      }
+
+      /* =================================================
+           MAIN MAP BACKGROUND
+           ================================================= */
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+
+        min-height: 100vh;
+
+        color: white;
+
+        overflow-x: hidden;
+
+        position: relative;
+
+        background:
+          radial-gradient(
+            circle at 12% 15%,
+            rgba(59, 130, 246, 0.28),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 88% 20%,
+            rgba(96, 165, 250, 0.2),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 70% 90%,
+            rgba(37, 99, 235, 0.2),
+            transparent 32%
+          ),
+          linear-gradient(
+            135deg,
+            #07152f 0%,
+            #0b2550 45%,
+            #123f82 75%,
+            #071a38 100%
+          );
+      }
+
+      /* =================================================
+           MAP ROADS
+           ================================================= */
+
+      body::before {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: 0;
+
+        opacity: 0.28;
+
+        background-image:
+
+                /* horizontal roads */
+          linear-gradient(
+            12deg,
+            transparent 0%,
+            transparent 47%,
+            rgba(191, 219, 254, 0.16) 48%,
+            rgba(191, 219, 254, 0.16) 49%,
+            transparent 50%,
+            transparent 100%
+          ),
+          /* diagonal roads */
+          linear-gradient(
+              145deg,
+              transparent 0%,
+              transparent 46%,
+              rgba(191, 219, 254, 0.12) 47%,
+              rgba(191, 219, 254, 0.12) 48%,
+              transparent 49%,
+              transparent 100%
+            ),
+          /* vertical roads */
+          linear-gradient(
+              78deg,
+              transparent 0%,
+              transparent 49%,
+              rgba(147, 197, 253, 0.09) 50%,
+              transparent 51%,
+              transparent 100%
+            );
+
+        background-size:
+          420px 250px,
+          360px 300px,
+          500px 380px;
+      }
+
+      /* =================================================
+           MAP ROAD DETAILS
+           ================================================= */
+
+      body::after {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: 0;
+
+        opacity: 0.16;
+
+        background: repeating-linear-gradient(
+          25deg,
+          transparent 0px,
+          transparent 95px,
+          rgba(255, 255, 255, 0.18) 96px,
+          rgba(255, 255, 255, 0.18) 97px,
+          transparent 98px,
+          transparent 190px
+        );
+      }
+
+      /* =================================================
+           LOCATION DOTS
+           ================================================= */
+
+      .map-dot {
+        position: fixed;
+
+        width: 9px;
+
+        height: 9px;
+
+        border-radius: 50%;
+
+        background: #60a5fa;
+
+        box-shadow:
+          0 0 0 7px rgba(96, 165, 250, 0.1),
+          0 0 20px rgba(96, 165, 250, 0.55);
+
+        z-index: 1;
+      }
+
+      .dot-1 {
+        top: 18%;
+        left: 8%;
+      }
+
+      .dot-2 {
+        top: 35%;
+        left: 28%;
+      }
+
+      .dot-3 {
+        top: 72%;
+        left: 12%;
+      }
+
+      .dot-4 {
+        top: 22%;
+        right: 20%;
+      }
+
+      .dot-5 {
+        bottom: 18%;
+        right: 28%;
+      }
+
+      /* =================================================
+           ROUTE PATH 1
+           ================================================= */
+
+      .route-line {
+        position: fixed;
+
+        width: 430px;
+
+        height: 190px;
+
+        left: 3%;
+
+        bottom: 9%;
+
+        border-left: 2px dashed rgba(147, 197, 253, 0.38);
+
+        border-bottom: 2px dashed rgba(147, 197, 253, 0.38);
+
+        border-radius: 0 0 0 190px;
+
+        transform: rotate(-8deg);
+
+        z-index: 1;
+      }
+
+      .route-line::after {
+        content: "📍";
+
+        position: absolute;
+
+        right: -11px;
+
+        bottom: -16px;
+
+        font-size: 27px;
+
+        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.25));
+      }
+
+      /* =================================================
+           ROUTE PATH 2
+           ================================================= */
+
+      .route-two {
+        position: fixed;
+
+        width: 380px;
+
+        height: 170px;
+
+        right: 3%;
+
+        top: 13%;
+
+        border-right: 2px dashed rgba(147, 197, 253, 0.28);
+
+        border-top: 2px dashed rgba(147, 197, 253, 0.28);
+
+        border-radius: 0 180px 0 0;
+
+        transform: rotate(8deg);
+
+        z-index: 1;
+      }
+
+      .route-two::after {
+        content: "📍";
+
+        position: absolute;
+
+        left: -12px;
+
+        bottom: -15px;
+
+        font-size: 24px;
+
+        opacity: 0.75;
+      }
+
+      /* =================================================
+           TOP BAR
+           ================================================= */
+
+      .topbar {
+        position: relative;
+
+        z-index: 5;
+
+        width: 100%;
+
+        padding: 24px 5%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        color: white;
+
+        font-size: 24px;
+
+        font-weight: 800;
+
+        letter-spacing: -0.5px;
+      }
+
+      .brand-icon {
+        width: 40px;
+
+        height: 40px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-radius: 12px;
+
+        font-size: 21px;
+
+        backdrop-filter: blur(8px);
+      }
+
+      .top-label {
+        color: rgba(255, 255, 255, 0.75);
+
+        font-size: 13px;
+      }
+
+      /* =================================================
+           MAIN PAGE
+           ================================================= */
+
+      .login-page {
+        position: relative;
+
+        z-index: 3;
+
+        width: min(1000px, 92%);
+
+        min-height: calc(100vh - 90px);
+
+        margin: auto;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        padding: 15px 0 35px;
+      }
+
+      /* =================================================
+           INTRODUCTION
+           ================================================= */
+
+      .product-content {
+        width: 100%;
+
+        max-width: 850px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        padding: 8px 15px;
+
+        margin-bottom: 16px;
+
+        border: 1px solid rgba(147, 197, 253, 0.35);
+
+        border-radius: 30px;
+
+        background: rgba(255, 255, 255, 0.08);
+
+        color: #dbeafe;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        backdrop-filter: blur(8px);
+      }
+
+      .product-content h1 {
+        font-size: clamp(42px, 5vw, 64px);
+
+        line-height: 1;
+
+        letter-spacing: -2.5px;
+
+        margin-bottom: 18px;
+
+        color: white;
+      }
+
+      .product-content h1 span {
+        color: #60a5fa;
+      }
+
+      .product-description {
+        max-width: 700px;
+
+        color: rgba(255, 255, 255, 0.78);
+
+        font-size: 16px;
+
+        line-height: 1.6;
+
+        margin-bottom: 8px;
+      }
+
+      /* =================================================
+           LOGIN CARD
+           ================================================= */
+
+      .login-container {
+        position: relative;
+
+        width: 420px;
+
+        max-width: 100%;
+
+        margin: 18px auto 0;
+
+        padding: 35px 38px;
+
+        border-radius: 24px;
+
+        background: rgba(255, 255, 255, 0.97);
+
+        color: #172033;
+
+        border: 1px solid rgba(255, 255, 255, 0.8);
+
+        box-shadow:
+          0 30px 80px rgba(0, 0, 0, 0.3),
+          0 8px 30px rgba(0, 0, 0, 0.15);
+
+        backdrop-filter: blur(18px);
+      }
+
+      .login-logo {
+        text-align: center;
+
+        margin-bottom: 7px;
+
+        color: #2563eb;
+
+        font-size: 26px;
+
+        font-weight: 800;
+      }
+
+      .login-subtitle {
+        text-align: center;
+
+        margin-bottom: 27px;
+
+        color: #64748b;
+
+        font-size: 12px;
+      }
+
+      .login-container h2 {
+        text-align: center;
+
+        margin-bottom: 25px;
+
+        color: #172033;
+
+        font-size: 23px;
+      }
+
+      /* =================================================
+           FORM
+           ================================================= */
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #334155;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        text-align: left;
+      }
+
+      input {
+        width: 100%;
+
+        padding: 14px;
+
+        border: 1px solid #dbe3ef;
+
+        border-radius: 10px;
+
+        background: #f8fafc;
+
+        color: #172033;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition: 0.2s ease;
+      }
+
+      input::placeholder {
+        color: #94a3b8;
+      }
+
+      input:focus {
+        background: white;
+
+        border-color: #2563eb;
+
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
+      }
+
+      /* =================================================
+           PASSWORD
+           ================================================= */
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .password-wrapper input {
+        padding-right: 48px;
+      }
+
+      .password-toggle {
+        position: absolute;
+
+        right: 9px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        border: none;
+
+        background: transparent;
+
+        cursor: pointer;
+
+        color: #64748b;
+
+        font-size: 17px;
+
+        padding: 6px;
+      }
+
+      .password-toggle:hover {
+        color: #2563eb;
+      }
+
+      /* =================================================
+           LOGIN BUTTON
+           ================================================= */
+
+      .login-btn {
+        width: 100%;
+
+        margin-top: 5px;
+
+        padding: 14px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
+
+        transition: 0.2s ease;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+
+        box-shadow: 0 14px 28px rgba(37, 99, 235, 0.32);
+      }
+
+      /* =================================================
+           ERROR
+           ================================================= */
+
+      .error {
+        background: #fff1f2;
+
+        border: 1px solid #fecdd3;
+
+        color: #be123c;
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        margin-bottom: 16px;
+
+        text-align: center;
+
+        font-size: 13px;
+      }
+
+      /* =================================================
+           REGISTER LINK
+           ================================================= */
+
+      .register-link {
+        text-align: center;
+
+        margin-top: 21px;
+
+        color: #64748b;
+
+        font-size: 13px;
+      }
+
+      .register-link a {
+        color: #2563eb;
+
+        text-decoration: none;
+
+        font-weight: 700;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* =================================================
+           BACK HOME
+           ================================================= */
+
+      .back-home {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 15px;
+
+        color: #64748b;
+
+        text-decoration: none;
+
+        font-size: 12px;
+      }
+
+      .back-home:hover {
+        color: #2563eb;
+      }
+
+      /* =================================================
+           FEATURES
+           ================================================= */
+
+      .feature-list {
+        width: 100%;
+
+        display: flex;
+
+        flex-wrap: nowrap;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-top: 25px;
+
+        white-space: nowrap;
+      }
+
+      .feature {
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        padding: 10px 13px;
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+
+        background: rgba(255, 255, 255, 0.07);
+
+        border-radius: 11px;
+
+        color: rgba(255, 255, 255, 0.9);
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        backdrop-filter: blur(8px);
+      }
+
+      .feature-icon {
+        font-size: 15px;
+      }
+
+      /* =================================================
+           FOOTER
+           ================================================= */
+
+      .product-footer {
+        position: static;
+
+        width: 100%;
+
+        margin-top: 17px;
+
+        text-align: center;
+
+        color: rgba(255, 255, 255, 0.58);
+
+        font-size: 12px;
+
+        letter-spacing: 0.2px;
+      }
+
+      /* =================================================
+           MOBILE
+           ================================================= */
+
+      @media (max-width: 900px) {
+        .login-page {
+          width: 92%;
+
+          padding-top: 10px;
+        }
+
+        .product-content h1 {
+          font-size: 48px;
+        }
+
+        .login-container {
+          margin-top: 20px;
+        }
+
+        .feature-list {
+          max-width: 100%;
+
+          overflow-x: auto;
+
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 560px) {
+        body {
+          overflow-x: hidden;
+        }
+
+        .topbar {
+          padding: 18px 20px;
+        }
+
+        .top-label {
+          display: none;
+        }
+
+        .login-page {
+          width: 92%;
+
+          padding: 10px 0 30px;
+        }
+
+        .product-content h1 {
+          font-size: 40px;
+
+          letter-spacing: -1.8px;
+        }
+
+        .product-description {
+          font-size: 14px;
+        }
+
+        .login-container {
+          width: 100%;
+
+          padding: 30px 23px;
+        }
+
+        .feature {
+          font-size: 11px;
+
+          padding: 9px 11px;
+        }
+
+        .route-line,
+        .route-two {
+          opacity: 0.4;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- MAP DECORATION -->
+
+    <span class="map-dot dot-1"></span>
+
+    <span class="map-dot dot-2"></span>
+
+    <span class="map-dot dot-3"></span>
+
+    <span class="map-dot dot-4"></span>
+
+    <span class="map-dot dot-5"></span>
+
+    <div class="route-line"></div>
+
+    <div class="route-two"></div>
+
+    <!-- TOP BRANDING -->
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">📍</div>
+
+        SmartPlace
+      </div>
+
+      <div class="top-label">Explore. Discover. Plan.</div>
+    </header>
+
+    <!-- MAIN -->
+
+    <main class="login-page">
+      <!-- INTRO -->
+
+      <section class="product-content">
+        <div class="eyebrow">✦ Your smarter way to explore</div>
+
+        <h1>
+          Explore Places
+
+          <span> Smarter. </span>
+        </h1>
+
+        <p class="product-description">
+          Everything you need before you visit — place information, weather,
+          parking, nearby services and directions in one place.
+        </p>
+      </section>
+
+      <!-- LOGIN -->
+
+      <section class="login-container">
+        <div class="login-logo">SmartPlace</div>
+
+        <p class="login-subtitle">Explore. Discover. Plan.</p>
+
+        <h2>Welcome Back 👋</h2>
+
+        {% if error %}
+
+        <div class="error">{{ error }}</div>
+
+        {% endif %}
+
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="username"> Username </label>
+
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password"> Password </label>
+
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+
+              <button
+                type="button"
+                class="password-toggle"
+                onclick="togglePassword('password', this)"
+                aria-label="Show password"
+              >
+                👁
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <div class="register-link">
+          Don't have an account?
+
+          <a href="{% url 'register' %}"> Create Account </a>
+        </div>
+
+        <a href="{% url 'home' %}" class="back-home"> ← Back to SmartPlace </a>
+      </section>
+
+      <!-- FEATURES -->
+
+      <div class="feature-list">
+        <div class="feature">
+          <span class="feature-icon"> 📍 </span>
+
+          Place Information
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🌦️ </span>
+
+          Current Weather
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🅿️ </span>
+
+          Parking
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🏨 </span>
+
+          Nearby Services
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🗺️ </span>
+
+          Routes & Directions
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon"> 🔖 </span>
+
+          Save Trips
+        </div>
+      </div>
+
+      <p class="product-footer">Search · Discover · Plan · Visit smarter</p>
+    </main>
+
+    <!-- PASSWORD SCRIPT -->
+
+    <script>
+      function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+
+        if (input.type === "password") {
+          input.type = "text";
+
+          button.textContent = "🙈";
+
+          button.setAttribute("aria-label", "Hide password");
+        } else {
+          input.type = "password";
+
+          button.textContent = "👁";
+
+          button.setAttribute("aria-label", "Show password");
+        }
+      }
+    </script>
+  </body>
+</html>

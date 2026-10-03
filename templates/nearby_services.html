@@ -1,0 +1,617 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ service_title }} near {{ place.name }} | Smart Place</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <style>
+      /* =====================================================
+           NEARBY SERVICES PAGE
+           ===================================================== */
+
+      .services-page {
+        min-height: calc(100vh - 72px);
+        background: #f8fafc;
+        padding: 42px 0 70px;
+      }
+
+      .services-container {
+        width: min(1050px, 92%);
+        margin: auto;
+      }
+
+      /* BACK LINK */
+
+      .services-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 22px;
+
+        color: #2563eb;
+        font-size: 14px;
+        font-weight: 700;
+
+        transition: 0.2s ease;
+      }
+
+      .services-back:hover {
+        color: #1d4ed8;
+        transform: translateX(-2px);
+      }
+
+      /* PAGE HEADER */
+
+      .services-header {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        padding: 28px;
+
+        background: #ffffff;
+
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+
+        margin-bottom: 28px;
+
+        overflow: hidden;
+      }
+
+      .services-header::before {
+        content: "";
+
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+
+        width: 5px;
+
+        background: #2563eb;
+      }
+
+      .services-icon {
+        width: 64px;
+        height: 64px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #eff6ff;
+
+        border-radius: 15px;
+
+        font-size: 32px;
+      }
+
+      .services-header-content {
+        min-width: 0;
+      }
+
+      .services-label {
+        display: block;
+
+        margin-bottom: 4px;
+
+        color: #2563eb;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .services-header h1 {
+        margin: 0;
+
+        color: #172033;
+
+        font-size: 30px;
+        line-height: 1.2;
+      }
+
+      .services-header p {
+        margin-top: 7px;
+
+        color: #64748b;
+
+        font-size: 14px;
+      }
+
+      .services-header p strong {
+        color: #334155;
+      }
+
+      /* RESULTS HEADER */
+
+      .results-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin-bottom: 15px;
+      }
+
+      .results-heading h2 {
+        color: #172033;
+
+        font-size: 18px;
+      }
+
+      .results-count {
+        padding: 5px 10px;
+
+        border-radius: 999px;
+
+        background: #eff6ff;
+        color: #2563eb;
+
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      /* SERVICE CARDS */
+
+      .service-results {
+        display: grid;
+        gap: 14px;
+      }
+
+      .service-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 25px;
+
+        padding: 21px 22px;
+
+        background: #ffffff;
+
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-3px);
+
+        border-color: #bfdbfe;
+
+        box-shadow: 0 12px 28px rgba(37, 99, 235, 0.09);
+      }
+
+      /* SERVICE INFORMATION */
+
+      .service-info {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .service-name-row {
+        display: flex;
+        align-items: center;
+
+        gap: 10px;
+
+        margin-bottom: 8px;
+      }
+
+      .service-name {
+        color: #172033;
+
+        font-size: 19px;
+        font-weight: 700;
+
+        line-height: 1.3;
+      }
+
+      .service-type {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 4px 9px;
+
+        border-radius: 999px;
+
+        background: #eff6ff;
+        color: #2563eb;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        white-space: nowrap;
+      }
+
+      /* DISTANCE */
+
+      .service-meta {
+        display: flex;
+        align-items: center;
+
+        flex-wrap: wrap;
+
+        gap: 16px;
+
+        color: #64748b;
+
+        font-size: 13px;
+      }
+
+      .service-distance {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 6px;
+      }
+
+      .service-distance-icon {
+        font-size: 14px;
+      }
+
+      .service-distance strong {
+        color: #334155;
+      }
+
+      /* ADDRESS */
+
+      .service-address {
+        display: flex;
+        align-items: flex-start;
+
+        gap: 6px;
+
+        max-width: 650px;
+
+        margin-top: 7px;
+
+        color: #94a3b8;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+      }
+
+      /* ROUTE BUTTON */
+
+      .service-action {
+        flex-shrink: 0;
+      }
+
+      .route-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        min-height: 42px;
+
+        padding: 0 17px;
+
+        border-radius: 9px;
+
+        background: #2563eb;
+        color: #ffffff !important;
+
+        font-size: 13px;
+        font-weight: 700;
+
+        white-space: nowrap;
+
+        transition: 0.2s ease;
+      }
+
+      .route-button:hover {
+        background: #1d4ed8;
+
+        transform: translateY(-1px);
+
+        box-shadow: 0 7px 18px rgba(37, 99, 235, 0.2);
+      }
+
+      .route-icon {
+        font-size: 15px;
+      }
+
+      /* EMPTY STATE */
+
+      .service-empty {
+        max-width: 600px;
+
+        margin: 30px auto 0;
+
+        padding: 55px 30px;
+
+        text-align: center;
+
+        background: #ffffff;
+
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+      }
+
+      .service-empty-icon {
+        width: 65px;
+        height: 65px;
+
+        margin: 0 auto 17px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #eff6ff;
+
+        border-radius: 16px;
+
+        font-size: 30px;
+      }
+
+      .service-empty h2 {
+        margin-bottom: 8px;
+
+        color: #172033;
+
+        font-size: 21px;
+      }
+
+      .service-empty p {
+        margin-bottom: 22px;
+
+        color: #64748b;
+
+        font-size: 14px;
+      }
+
+      .back-place-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 42px;
+
+        padding: 0 18px;
+
+        border-radius: 9px;
+
+        background: #2563eb;
+        color: #ffffff !important;
+
+        font-size: 13px;
+        font-weight: 700;
+
+        transition: 0.2s ease;
+      }
+
+      .back-place-button:hover {
+        background: #1d4ed8;
+
+        transform: translateY(-1px);
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 700px) {
+        .services-page {
+          padding: 28px 0 50px;
+        }
+
+        .services-header {
+          padding: 22px 20px;
+
+          align-items: flex-start;
+        }
+
+        .services-icon {
+          width: 54px;
+          height: 54px;
+
+          font-size: 27px;
+        }
+
+        .services-header h1 {
+          font-size: 25px;
+        }
+
+        .service-card {
+          flex-direction: column;
+
+          align-items: stretch;
+
+          gap: 18px;
+
+          padding: 19px;
+        }
+
+        .service-name {
+          font-size: 17px;
+        }
+
+        .service-action {
+          width: 100%;
+        }
+
+        .route-button {
+          width: 100%;
+        }
+
+        .results-heading {
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .services-container {
+          width: 94%;
+        }
+
+        .services-header {
+          gap: 14px;
+        }
+
+        .services-header h1 {
+          font-size: 22px;
+        }
+
+        .services-header p {
+          font-size: 13px;
+        }
+
+        .service-name-row {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .service-meta {
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="/" class="brand">
+          <span class="brand-icon">📍</span>
+
+          <span class="brand-name"> Smart<span>Place</span> </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- PAGE -->
+    <main class="services-page">
+      <div class="services-container">
+        <!-- BACK -->
+        <a href="{% url 'place_detail' place.id %}" class="services-back">
+          ← Back to {{ place.name }}
+        </a>
+
+        <!-- HEADER -->
+        <section class="services-header">
+          <div class="services-icon">{{ service_icon }}</div>
+
+          <div class="services-header-content">
+            <span class="services-label"> Nearby Services </span>
+
+            <h1>{{ service_title }}</h1>
+
+            <p>
+              Nearby {{ service_title|lower }} around
+              <strong>{{ place.name }}</strong>
+            </p>
+          </div>
+        </section>
+
+        {% if services %}
+
+        <!-- RESULTS HEADING -->
+        <div class="results-heading">
+          <h2>{{ service_title }} near you</h2>
+
+          <span class="results-count"> Within 2 km </span>
+        </div>
+
+        <!-- SERVICE RESULTS -->
+        <div class="service-results">
+          {% for service in services %}
+
+          <article class="service-card">
+            <div class="service-info">
+              <div class="service-name-row">
+                <h2 class="service-name">{{ service.name }}</h2>
+
+                <span class="service-type"> {{ service_type|title }} </span>
+              </div>
+
+              <div class="service-meta">
+                <span class="service-distance">
+                  <span class="service-distance-icon"> 📍 </span>
+
+                  <strong> {{ service.distance }} km </strong>
+
+                  away
+                </span>
+              </div>
+
+              {% if service.address %}
+
+              <p class="service-address">
+                <span>📌</span>
+
+                <span> {{ service.address }} </span>
+              </p>
+
+              {% endif %}
+            </div>
+
+            <!-- ROUTE -->
+            <div class="service-action">
+              <a
+                href="{% url 'route' place.id service.id %}"
+                class="route-button"
+              >
+                <span class="route-icon">🧭</span>
+
+                View Route
+              </a>
+            </div>
+          </article>
+
+          {% endfor %}
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY STATE -->
+        <div class="service-empty">
+          <div class="service-empty-icon">{{ service_icon }}</div>
+
+          <h2>No {{ service_title|lower }} found nearby</h2>
+
+          <p>
+            We couldn't find any {{ service_title|lower }} within 2 km of
+            <strong>{{ place.name }}</strong>.
+          </p>
+
+          <a href="{% url 'place_detail' place.id %}" class="back-place-button">
+            ← Back to Place
+          </a>
+        </div>
+
+        {% endif %}
+      </div>
+    </main>
+  </body>
+</html>

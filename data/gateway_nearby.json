@@ -1,0 +1,872 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-08-26T19:54:56Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 245653876,
+      "lat": 18.927571,
+      "lon": 72.8325747,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Copper Chimney",
+        "source": "AND"
+      }
+    },
+    {
+      "type": "node",
+      "id": 623344544,
+      "lat": 18.9186212,
+      "lon": 72.8295185,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "New Martin Hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 670270299,
+      "lat": 18.9215278,
+      "lon": 72.8312063,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Kamat Restaurant"
+      }
+    },
+    {
+      "type": "node",
+      "id": 683777920,
+      "lat": 18.9306421,
+      "lon": 72.8323368,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Ankur",
+        "phone": "+91 22 2265 4194 / 2263 0393"
+      }
+    },
+    {
+      "type": "node",
+      "id": 683779184,
+      "lat": 18.9239059,
+      "lon": 72.8332921,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Chhatrapati Shivaji Maharaj Road",
+        "amenity": "restaurant",
+        "cuisine": "japanese",
+        "name": "Otoki"
+      }
+    },
+    {
+      "type": "node",
+      "id": 704468160,
+      "lat": 18.9254094,
+      "lon": 72.8304996,
+      "tags": {
+        "addr:housenumber": "60",
+        "addr:postcode": "400039",
+        "addr:street": "Madame Cama Road",
+        "amenity": "restaurant",
+        "cuisine": "italian",
+        "name": "Villa 39",
+        "phone": "+91 22 6657 3939",
+        "source": "survey",
+        "url": "www.villa39.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 858938542,
+      "lat": 18.9286576,
+      "lon": 72.8323932,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "seafood",
+        "name": "Trishna"
+      }
+    },
+    {
+      "type": "node",
+      "id": 870447440,
+      "lat": 18.9226052,
+      "lon": 72.8312806,
+      "tags": {
+        "addr:postcode": "400039",
+        "addr:street": "Shahid Bhagat Singh Marg",
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Olympia Coffee House",
+        "opening_hours": "Mo-Su 07:00-24:00",
+        "phone": "022 2202 1043"
+      }
+    },
+    {
+      "type": "node",
+      "id": 870447661,
+      "lat": 18.9222725,
+      "lon": 72.8320651,
+      "tags": {
+        "addr:street": "Mandlik Road",
+        "amenity": "restaurant",
+        "name": "Indigo",
+        "website": "www.foodindigo.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 961369363,
+      "lat": 18.9224055,
+      "lon": 72.8326985,
+      "tags": {
+        "addr:city": "Puducherry",
+        "addr:country": "IN",
+        "addr:housename": "Florence House",
+        "addr:housenumber": "12",
+        "addr:place": "Colaba",
+        "addr:postcode": "400039",
+        "addr:street": "Boman Behram Road (Mere Weather Road)",
+        "contact:email": "carltontravels@gmail.com",
+        "name": "Carlton Hotel",
+        "phone": "22020642",
+        "phone2": "22020259",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1704905149,
+      "lat": 18.9308083,
+      "lon": 72.8350511,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Jimmy Boy"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1973521830,
+      "lat": 18.9186498,
+      "lon": 72.8284971,
+      "tags": {
+        "addr:street": "1st Pasta Lane",
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "diet:vegetarian": "only",
+        "name": "Kailash Parbat",
+        "source": "local_knowledge"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3290997483,
+      "lat": 18.9189746,
+      "lon": 72.8320493,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Flurys"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3306535081,
+      "lat": 18.9181862,
+      "lon": 72.8315678,
+      "tags": {
+        "name": "Palm Breaze",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3306535108,
+      "lat": 18.9245845,
+      "lon": 72.8318581,
+      "tags": {
+        "amenity": "restaurant",
+        "diet:vegetarian": "yes",
+        "name": "Sahakari Bhandar"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3366415293,
+      "lat": 18.928798,
+      "lon": 72.8323316,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "cuisine": "asian",
+        "name": "Mamagoto"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3366416123,
+      "lat": 18.9287859,
+      "lon": 72.8339813,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Nico Bombay"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3366422124,
+      "lat": 18.9282162,
+      "lon": 72.8328878,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "indian",
+        "name": "Ayub's"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3366422125,
+      "lat": 18.9282794,
+      "lon": 72.8333622,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Carter's Blue"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3366427603,
+      "lat": 18.9283524,
+      "lon": 72.8336264,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Nutcracker"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4099677901,
+      "lat": 18.9241821,
+      "lon": 72.8330843,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Chhatrapati Shivaji Maharaj Road",
+        "amenity": "restaurant",
+        "name": "The Table"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4099677903,
+      "lat": 18.9239309,
+      "lon": 72.8335563,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Chhatrapati Shivaji Maharaj Road",
+        "amenity": "restaurant",
+        "brand": "PizzaExpress",
+        "brand:wikidata": "Q662845",
+        "cuisine": "pizza",
+        "name": "PizzaExpress"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4561291577,
+      "lat": 18.9250842,
+      "lon": 72.8318941,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Café Royal",
+        "website": "https://www.caferoyal.in/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4605376505,
+      "lat": 18.9251132,
+      "lon": 72.8319074,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Café Royal",
+        "website": "https://www.caferoyal.in/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4841695627,
+      "lat": 18.9184241,
+      "lon": 72.8309379,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Mezban",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4841717121,
+      "lat": 18.9190174,
+      "lon": 72.8307412,
+      "tags": {
+        "name": "Garden Hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5209844942,
+      "lat": 18.9229102,
+      "lon": 72.8324423,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "chicken;indian;local",
+        "name": "बगदादी रेस्टोरेंट",
+        "name:ar": "مطعم البغدادى",
+        "name:en": "Bagdadi",
+        "name:es": "Bagdadi",
+        "name:km": "បក់ដឌី",
+        "opening_hours": "Mo-Su 07:00-14:00",
+        "phone": "+91-22-2202-8027"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5300321221,
+      "lat": 18.9236808,
+      "lon": 72.8324278,
+      "tags": {
+        "addr:housenumber": "19/21",
+        "addr:postcode": "400001",
+        "addr:street": "Mahakavi Bhushan Road (Lansdowne Road)",
+        "amenity": "restaurant",
+        "cuisine": "chinese",
+        "name": "Ling's Pavilion",
+        "name:en": "Ling's Pavilion",
+        "opening_hours": "Mo-Su 12:00-18:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5331030222,
+      "lat": 18.9308151,
+      "lon": 72.8330445,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "indian",
+        "diet:vegetarian": "only",
+        "name": "cafe chilkory"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5874674527,
+      "lat": 18.9279453,
+      "lon": 72.8321691,
+      "tags": {
+        "amenity": "restaurant",
+        "brand": "Punjab Grill",
+        "brand:wikidata": "Q124374761",
+        "cuisine": "north_indian",
+        "delivery": "yes",
+        "name": "Punjab Grill",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7137339285,
+      "lat": 18.9237234,
+      "lon": 72.8326873,
+      "tags": {
+        "addr:street": "Mahakavi Bhushan Road (Lansdowne Road)",
+        "internet_access": "wlan",
+        "name": "Abode Bombay",
+        "tourism": "hotel",
+        "website": "https://abodeboutiquehotels.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7139457486,
+      "lat": 18.9220889,
+      "lon": 72.8313971,
+      "tags": {
+        "addr:district": "Mumbai City",
+        "addr:housenumber": "61-A",
+        "addr:postcode": "400001",
+        "addr:street": "Colaba Causeway",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "contact:phone": "+91 22040195",
+        "cuisine": "local;indian",
+        "name": "Food Inn",
+        "name:en": "Food Inn",
+        "phone": "+91 22872881",
+        "website": "https://www.tripadvisor.in/Restaurant_Review-g304554-d5901125-Reviews-Food_Inn-Mumbai_Maharashtra.html"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11348920897,
+      "lat": 18.9279659,
+      "lon": 72.832941,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:district": "Maharashtra",
+        "addr:housenumber": "14",
+        "addr:postcode": "400001",
+        "addr:street": "14, New Bakehouse, Lane, Kala Ghoda, Fort",
+        "amenity": "restaurant",
+        "delivery": "yes",
+        "diet:non-vegetarian": "yes",
+        "diet:vegan": "yes",
+        "diet:vegetarian": "yes",
+        "name": "Folk",
+        "opening_hours": "Mo-Su 12:00-23:00",
+        "phone": "09820453001"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11542372406,
+      "lat": 18.9290226,
+      "lon": 72.8343431,
+      "tags": {
+        "addr:housenumber": "5",
+        "amenity": "restaurant",
+        "check_date": "2026-03-12",
+        "name": "Gateway Taproom",
+        "website": "https://gatewaytaprooms.com/kalaghoda.html"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11964902109,
+      "lat": 18.9283232,
+      "lon": 72.8316572,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "indian",
+        "name": "Khyber",
+        "name:en": "Khyber",
+        "name:hi": "खैबर",
+        "name:mr": "खैबर"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12560777888,
+      "lat": 18.9230125,
+      "lon": 72.831736,
+      "tags": {
+        "check_date": "2026-03-12",
+        "name": "Hotel Volga",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12564896083,
+      "lat": 18.9197801,
+      "lon": 72.8306468,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:district": "Colaba",
+        "addr:housenumber": "17",
+        "addr:postcode": "400001",
+        "addr:street": "Oliver Street",
+        "contact:phone": "+91 98708 06851",
+        "email": "bentleyshotel@gmail.com",
+        "internet_access": "yes",
+        "internet_access:fee": "customers",
+        "name": "Bentleys Hotel",
+        "payment:cash": "yes",
+        "phone": "+91 97692 83245",
+        "taxi": "prepaid taxi service",
+        "tourism": "hotel",
+        "website": "https://bentleyshotel.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12672424001,
+      "lat": 18.9239527,
+      "lon": 72.832473,
+      "tags": {
+        "addr:housenumber": "22",
+        "addr:postcode": "400001",
+        "addr:street": "Mahakavi Bhushan Road (Lansdowne Road)",
+        "amenity": "restaurant",
+        "cuisine": "asian",
+        "name": "जिया - ओरिएन्टल किचन",
+        "name:en": "Jia the Oriental Kitchen",
+        "opening_hours": "Mo-Su 12:00-15:30, 19:00-23:30",
+        "phone": "097699 48929",
+        "self_service": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12771009076,
+      "lat": 18.9224171,
+      "lon": 72.8315865,
+      "tags": {
+        "name": "Hotel Broadway Colaba",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13227676861,
+      "lat": 18.9215619,
+      "lon": 72.8322661,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:district": "Mumbai City",
+        "addr:full": "24, B.K. Boman Behram Road, Apollo Bunder, Colaba, Mumbai - 400001",
+        "addr:housenumber": "24",
+        "addr:postcode": "400001",
+        "addr:street": "B.K. Boman Behram Road",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "brand": "Smoke House Deli",
+        "brand:website": "https://www.smokehousedeli.in/",
+        "contact:phone": "+91 8657970804",
+        "level": "0",
+        "name": "Smoke House Deli",
+        "opening_hours": "Mo-Su 09:00-00:30",
+        "toilets": "yes",
+        "toilets:access": "customers",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14039967120,
+      "lat": 18.9237537,
+      "lon": 72.8317345,
+      "tags": {
+        "amenity": "restaurant",
+        "check_date": "2026-07-22",
+        "name": "Delhi Darbar"
+      }
+    },
+    {
+      "type": "way",
+      "id": 28846517,
+      "center": {
+        "lat": 18.921902,
+        "lon": 72.8330507
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:country": "IN",
+        "addr:district": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Prem J. Ramchandani Road",
+        "air_conditioning": "yes",
+        "brand": "Taj",
+        "brand:wikidata": "Q1521893",
+        "building": "yes",
+        "building:levels": "6",
+        "description": "As the leading harbour icon in India, The Taj Mahal Palace, Mumbai commands a regal view of the Gateway of India and the Arabian Sea. It epitomises the enduring commitment to excellence, heritage, and service that the Taj brand is renowned for globally.",
+        "internet_access": "yes",
+        "internet_access:fee": "customers",
+        "name": "Taj Mahal Palace",
+        "name:zh": "泰姬玛哈酒店",
+        "official_name": "Taj Hotels",
+        "operator": "Indian Hotels Company Limited",
+        "phone": "+91 22 6665 3366",
+        "rating": "Five Stars",
+        "tourism": "hotel",
+        "website": "https://www.tajhotels.com/en-in/hotels/taj-mahal-palace-mumbai",
+        "wikidata": "Q19104",
+        "wikimedia_commons": "Category:Taj Mahal Palace Hotel",
+        "wikipedia": "en:Taj Mahal Palace Hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40379745,
+      "center": {
+        "lat": 18.9202644,
+        "lon": 72.8324837
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Hotel Prosser's",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40381052,
+      "center": {
+        "lat": 18.9187992,
+        "lon": 72.8318466
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "building": "yes",
+        "name": "Hotel Harbour View",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40381057,
+      "center": {
+        "lat": 18.9190469,
+        "lon": 72.8319896
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Sea Palace Hotel",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40382476,
+      "center": {
+        "lat": 18.919922,
+        "lon": 72.8302321
+      },
+      "tags": {
+        "amenity": "restaurant",
+        "building": "yes",
+        "check_date": "2023-10-18",
+        "name": "Cafe Churchill",
+        "source": "Yahoo"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40384135,
+      "center": {
+        "lat": 18.9202918,
+        "lon": 72.8308686
+      },
+      "tags": {
+        "building": "yes",
+        "building:levels": "3",
+        "name": "Hotel Oliver",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40384228,
+      "center": {
+        "lat": 18.9189725,
+        "lon": 72.830742
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "building": "yes",
+        "check_date": "2025-03-07",
+        "name": "Garden Hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40384404,
+      "center": {
+        "lat": 18.9189927,
+        "lon": 72.8305236
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Hotel Godwin",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40384407,
+      "center": {
+        "lat": 18.9191505,
+        "lon": 72.8298923
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Hotel Ascot",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40387597,
+      "center": {
+        "lat": 18.9227133,
+        "lon": 72.8317641
+      },
+      "tags": {
+        "amenity": "restaurant",
+        "building": "yes",
+        "cuisine": "indian",
+        "name": "Cafe Leopold",
+        "name:en": "Leopold Cafe",
+        "opening_hours": "Mo-Su 07:30-01:00",
+        "website": "http://www.leopoldcafe.com/",
+        "wikidata": "Q153072",
+        "wikimedia_commons": "Category:Leopold Cafe",
+        "wikipedia": "en:Leopold Cafe"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40388251,
+      "center": {
+        "lat": 18.9238997,
+        "lon": 72.8328492
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:housenumber": "5",
+        "addr:postcode": "400039",
+        "addr:street": "Battery Street",
+        "building": "yes",
+        "name": "Gordon House Hotel",
+        "name:hi": "गॉर्डन हाउस होटल्स",
+        "phone": "+91-22-6124-5800",
+        "tourism": "hotel",
+        "website": "https://ghhotel.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40388254,
+      "center": {
+        "lat": 18.9240096,
+        "lon": 72.8329689
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Hotel Suba Palace",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 40388258,
+      "center": {
+        "lat": 18.923998,
+        "lon": 72.8325278
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Apollo Hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 54224854,
+      "center": {
+        "lat": 18.9217923,
+        "lon": 72.8286078
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:street": "Nathalal M. Parikh Road (Wodehouse Road)",
+        "air_conditioning": "yes",
+        "brand": "Taj",
+        "brand:wikidata": "Q1521893",
+        "building": "hotel",
+        "check_date": "2026-03-12",
+        "internet_access": "wlan",
+        "name": "Taj Wellington Mews",
+        "nohousenumber": "yes",
+        "official_name": "Taj Hotels",
+        "operator": "Indian Hotels Company Limited",
+        "smoking": "outside",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 56207976,
+      "center": {
+        "lat": 18.9243012,
+        "lon": 72.8309143
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:district": "Mumbai City",
+        "addr:housenumber": "12",
+        "addr:postcode": "400001",
+        "addr:street": "Nathalal Parikh Marg, Scindia Society, Police Colony, Apollo Bandar, Colaba",
+        "building": "yes",
+        "building:levels": "3",
+        "name": "YMCA-Young Men Christian Association",
+        "source": "Yahoo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 353423386,
+      "center": {
+        "lat": 18.919877,
+        "lon": 72.8310325
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:district": "Mumbai City",
+        "addr:postcode": "400039",
+        "addr:street": "Walton Rd, Apollo Bandar, Colaba",
+        "building": "yes",
+        "building:levels": "4",
+        "name": "Hotel Kishan Aga Beg's",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 353423394,
+      "center": {
+        "lat": 18.9217634,
+        "lon": 72.8319766
+      },
+      "tags": {
+        "building": "hotel",
+        "name": "Regent Hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 353423431,
+      "center": {
+        "lat": 18.9218826,
+        "lon": 72.8317014
+      },
+      "tags": {
+        "air_conditioning": "yes",
+        "building": "yes",
+        "building:use": "hotel",
+        "name": "Hotel Moti International",
+        "tourism": "hotel"
+      }
+    }
+  ]
+}

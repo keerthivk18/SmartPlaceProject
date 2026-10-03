@@ -1,0 +1,993 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Route to {{ service.name }} | Smart Place</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <style>
+      /* =====================================================
+           SMARTPLACE ROUTE PAGE
+           ===================================================== */
+
+      .route-page {
+        min-height: calc(100vh - 72px);
+        background: #f8fafc;
+        padding: 38px 0 70px;
+      }
+
+      .route-container {
+        width: min(1050px, 92%);
+        margin: auto;
+      }
+
+      /* BACK */
+
+      .route-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 20px;
+
+        color: #2563eb;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        transition: 0.2s ease;
+      }
+
+      .route-back:hover {
+        color: #1d4ed8;
+        transform: translateX(-2px);
+      }
+
+      /* HEADER */
+
+      .route-header {
+        position: relative;
+
+        padding: 28px;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+
+        overflow: hidden;
+      }
+
+      .route-header::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+        bottom: 0;
+
+        width: 5px;
+
+        background: #2563eb;
+      }
+
+      .route-label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #2563eb;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .route-header h1 {
+        margin: 0 0 18px;
+
+        color: #172033;
+
+        font-size: 30px;
+        line-height: 1.25;
+      }
+
+      /* FROM / DESTINATION */
+
+      .route-locations {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 15px;
+      }
+
+      .location-box {
+        padding: 14px 16px;
+
+        background: #f8fafc;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 11px;
+      }
+
+      .location-label {
+        display: block;
+
+        margin-bottom: 4px;
+
+        color: #94a3b8;
+
+        font-size: 11px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .location-name {
+        color: #334155;
+
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      /* ROUTE INFO */
+
+      .route-info {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 14px;
+
+        margin: 22px 0;
+      }
+
+      .route-info-card {
+        display: flex;
+        align-items: center;
+
+        gap: 13px;
+
+        padding: 18px;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 14px;
+
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+      }
+
+      .route-info-icon {
+        width: 43px;
+        height: 43px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #eff6ff;
+
+        border-radius: 11px;
+
+        font-size: 20px;
+      }
+
+      .route-info-text strong {
+        display: block;
+
+        margin-bottom: 2px;
+
+        color: #64748b;
+
+        font-size: 11px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .route-info-text span {
+        color: #172033;
+
+        font-size: 19px;
+        font-weight: 800;
+      }
+
+      /* SAVE TRIP */
+
+      .save-trip-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin: 20px 0;
+
+        padding: 18px 20px;
+
+        background: #ffffff;
+
+        border: 1px solid #dbeafe;
+
+        border-radius: 14px;
+
+        box-shadow: 0 5px 18px rgba(37, 99, 235, 0.05);
+      }
+
+      .save-trip-text h3 {
+        margin-bottom: 3px;
+
+        color: #172033;
+
+        font-size: 15px;
+      }
+
+      .save-trip-text p {
+        color: #64748b;
+
+        font-size: 12px;
+      }
+
+      .save-trip-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        min-height: 43px;
+
+        padding: 0 19px;
+
+        border: none;
+
+        border-radius: 9px;
+
+        background: #2563eb;
+
+        color: white;
+
+        font-family: inherit;
+
+        font-size: 13px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+
+        white-space: nowrap;
+      }
+
+      .save-trip-button:hover:not(:disabled) {
+        background: #1d4ed8;
+
+        transform: translateY(-1px);
+
+        box-shadow: 0 7px 18px rgba(37, 99, 235, 0.2);
+      }
+
+      .save-trip-button:disabled {
+        opacity: 0.55;
+
+        cursor: not-allowed;
+      }
+
+      .save-trip-button.saved {
+        background: #16a34a;
+      }
+
+      .my-trips-link {
+        display: none;
+
+        margin-left: 8px;
+
+        color: #2563eb;
+
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .my-trips-link.show {
+        display: inline;
+      }
+
+      /* STATUS */
+
+      .route-status {
+        margin: 15px 0;
+
+        padding: 13px 16px;
+
+        background: #eefaf3;
+
+        border: 1px solid #d1fae5;
+
+        border-radius: 10px;
+
+        color: #176b3a;
+
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .route-status.error {
+        background: #fef2f2;
+
+        border-color: #fecaca;
+
+        color: #b91c1c;
+      }
+
+      /* NOTE */
+
+      .route-note {
+        margin: 10px 0 18px;
+
+        padding: 12px 15px;
+
+        background: #fff8e6;
+
+        border-left: 4px solid #e0a400;
+
+        border-radius: 7px;
+
+        color: #6b5200;
+
+        font-size: 13px;
+      }
+
+      /* MAP */
+
+      .map-section {
+        padding: 8px;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 18px;
+
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+      }
+
+      .map-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 13px 15px;
+
+        gap: 15px;
+      }
+
+      .map-heading h2 {
+        color: #172033;
+
+        font-size: 16px;
+      }
+
+      .map-heading span {
+        color: #94a3b8;
+
+        font-size: 11px;
+      }
+
+      #route-map {
+        width: 100%;
+        height: 500px;
+
+        border-radius: 13px;
+
+        overflow: hidden;
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 750px) {
+        .route-page {
+          padding: 28px 0 50px;
+        }
+
+        .route-header {
+          padding: 22px 20px;
+        }
+
+        .route-header h1 {
+          font-size: 25px;
+        }
+
+        .route-locations {
+          grid-template-columns: 1fr;
+        }
+
+        .route-info {
+          grid-template-columns: 1fr;
+        }
+
+        .save-trip-section {
+          align-items: stretch;
+
+          flex-direction: column;
+        }
+
+        .save-trip-button {
+          width: 100%;
+        }
+
+        .my-trips-link {
+          display: block;
+
+          margin: 8px 0 0;
+
+          text-align: center;
+        }
+
+        #route-map {
+          height: 420px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .route-container {
+          width: 94%;
+        }
+
+        .route-header h1 {
+          font-size: 22px;
+        }
+
+        #route-map {
+          height: 370px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="/" class="brand">
+          <span class="brand-icon"> 📍 </span>
+
+          <span class="brand-name"> Smart<span>Place</span> </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- PAGE -->
+
+    <main class="route-page">
+      <div class="route-container">
+        <!-- BACK -->
+
+        <a
+          href="{% url 'nearby_services' place.id service.service_type %}"
+          class="route-back"
+        >
+          ← Back to {{ service.service_type|title }}
+        </a>
+
+        <!-- ROUTE HEADER -->
+
+        <section class="route-header">
+          <span class="route-label"> Route Planner </span>
+
+          <h1>🧭 Route to {{ service.name }}</h1>
+
+          <div class="route-locations">
+            <div class="location-box">
+              <span class="location-label"> From </span>
+
+              <span class="location-name"> {{ place.name }} </span>
+            </div>
+
+            <div class="location-box">
+              <span class="location-label"> Destination </span>
+
+              <span class="location-name"> {{ service.name }} </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROUTE INFORMATION -->
+
+        <div class="route-info">
+          <div class="route-info-card">
+            <div class="route-info-icon">📏</div>
+
+            <div class="route-info-text">
+              <strong> Distance </strong>
+
+              <span id="route-distance"> Calculating... </span>
+            </div>
+          </div>
+
+          <div class="route-info-card">
+            <div class="route-info-icon">⏱️</div>
+
+            <div class="route-info-text">
+              <strong> Travel Time </strong>
+
+              <span id="route-duration"> Calculating... </span>
+            </div>
+          </div>
+
+          <div class="route-info-card">
+            <div class="route-info-icon">🚗</div>
+
+            <div class="route-info-text">
+              <strong> Mode </strong>
+
+              <span> Driving </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAVE TRIP -->
+
+        <section class="save-trip-section">
+          <div class="save-trip-text">
+            <h3>🔖 Save this trip</h3>
+
+            <p>Save this route and access it later from My Trip History.</p>
+          </div>
+
+          <div>
+            <button
+              type="button"
+              id="save-trip-button"
+              class="save-trip-button"
+              disabled
+            >
+              🔖 Save Trip
+            </button>
+
+            <a
+              href="{% url 'my_trips' %}"
+              id="my-trips-link"
+              class="my-trips-link"
+            >
+              View My Trips
+            </a>
+          </div>
+        </section>
+
+        <!-- STATUS -->
+
+        <p id="route-status" class="route-status">Calculating route...</p>
+
+        <!-- NOTE -->
+
+        <div id="route-note" class="route-note" style="display: none">
+          🚗 The driving route ends at the nearest accessible road. A short walk
+          may be required to reach the exact destination.
+        </div>
+
+        <!-- MAP -->
+
+        <section class="map-section">
+          <div class="map-heading">
+            <h2>Route Map</h2>
+
+            <span> OpenStreetMap </span>
+          </div>
+
+          <div id="route-map"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ROUTE DATA -->
+
+    <div
+      id="route-data"
+      data-start-lat="{{ place.latitude }}"
+      data-start-lng="{{ place.longitude }}"
+      data-end-lat="{{ service.latitude }}"
+      data-end-lng="{{ service.longitude }}"
+    ></div>
+
+    <!-- CSRF -->
+
+    <form style="display: none">{% csrf_token %}</form>
+
+    <!-- LEAFLET -->
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+      /* =====================================================
+           COORDINATES
+           ===================================================== */
+
+      const routeData = document.getElementById("route-data");
+
+      const startLat = parseFloat(routeData.dataset.startLat);
+
+      const startLng = parseFloat(routeData.dataset.startLng);
+
+      const endLat = parseFloat(routeData.dataset.endLat);
+
+      const endLng = parseFloat(routeData.dataset.endLng);
+
+      /* =====================================================
+           MAP
+           ===================================================== */
+
+      const map = L.map("route-map").setView([startLat, startLng], 15);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+
+        attribution: "&copy; OpenStreetMap contributors, Tiles style by HOT",
+      }).addTo(map);
+
+      /* =====================================================
+           START MARKER
+           ===================================================== */
+
+      // ------------------------------------
+      // CUSTOM MARKERS
+      // Blue = Start
+      // Red = Destination
+      // ------------------------------------
+
+      const startIcon = L.divIcon({
+        className: "",
+        html: `
+    <div style="
+      width: 32px;
+      height: 32px;
+      background: #2878ed;
+      border: 3px solid white;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    ">S</div>
+  `,
+        iconSize: [38, 38],
+        iconAnchor: [19, 19],
+        popupAnchor: [0, -19],
+      });
+
+      const destinationIcon = L.divIcon({
+        className: "",
+        html: `
+    <div style="
+      width: 32px;
+      height: 32px;
+      background: #e53935;
+      border: 3px solid white;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    ">D</div>
+  `,
+        iconSize: [38, 38],
+        iconAnchor: [19, 19],
+        popupAnchor: [0, -19],
+      });
+
+      // ------------------------------------
+      // START MARKER - BLUE
+      // ------------------------------------
+
+      const startMarker = L.marker([startLat, startLng], {
+        icon: startIcon,
+      }).addTo(map);
+
+      startMarker.bindPopup(
+        "<strong>🔵 Start</strong><br>" + "{{ place.name|escapejs }}",
+      );
+
+      // ------------------------------------
+      // DESTINATION MARKER - RED
+      // ------------------------------------
+
+      const destinationMarker = L.marker([endLat, endLng], {
+        icon: destinationIcon,
+      }).addTo(map);
+
+      destinationMarker.bindPopup(
+        "<strong>🔴 Destination</strong><br>" + "{{ service.name|escapejs }}",
+      );
+
+      /* =====================================================
+           ROUTE API
+           ===================================================== */
+
+      const routeUrl =
+        "{% url 'route_api' %}" +
+        "?start_lat=" +
+        encodeURIComponent(startLat) +
+        "&start_lon=" +
+        encodeURIComponent(startLng) +
+        "&end_lat=" +
+        encodeURIComponent(endLat) +
+        "&end_lon=" +
+        encodeURIComponent(endLng) +
+        "&profile=driving-car";
+
+      /* =====================================================
+           ROUTE VARIABLES
+           ===================================================== */
+
+      let routeDistanceKm = 0;
+      let routeDurationMinutes = 0;
+
+      let routeGeometry = null;
+
+      /* =====================================================
+           REQUEST ROUTE
+           ===================================================== */
+
+      fetch(routeUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Route request failed");
+          }
+
+          return response.json();
+        })
+
+        .then((data) => {
+          console.log("Route response:", data);
+
+          if (!data.routes || !data.routes.length) {
+            throw new Error("No route found");
+          }
+
+          const route = data.routes[0];
+
+          const geometry = route.geometry;
+
+          const summary = route.summary;
+
+          routeGeometry = geometry;
+
+          /* =============================================
+                   DRAW ROUTE
+                   ============================================= */
+
+          const routeLayer = L.geoJSON(geometry, {
+            style: {
+              weight: 7,
+              opacity: 0.9,
+            },
+          }).addTo(map);
+
+          /* =============================================
+                   ROAD END
+                   ============================================= */
+
+          const coordinates = geometry.coordinates;
+
+          const lastCoordinate = coordinates[coordinates.length - 1];
+
+          const roadEndLng = lastCoordinate[0];
+
+          const roadEndLat = lastCoordinate[1];
+
+          const roadAccessMarker = L.circleMarker([roadEndLat, roadEndLng], {
+            radius: 8,
+            weight: 3,
+            fillOpacity: 1,
+          }).addTo(map);
+
+          roadAccessMarker.bindPopup(
+            "<strong>🚗 Road Access Point</strong><br>" +
+              "Driving route ends here.",
+          );
+
+          /* =============================================
+                   DISTANCE
+                   ============================================= */
+
+          routeDistanceKm = (summary.distance / 1000).toFixed(2);
+
+          /* =============================================
+                   TIME
+                   ============================================= */
+
+          routeDurationMinutes = Math.max(1, Math.round(summary.duration / 60));
+
+          document.getElementById("route-distance").textContent =
+            routeDistanceKm + " km";
+
+          document.getElementById("route-duration").textContent =
+            routeDurationMinutes + " min";
+
+          /* =============================================
+                   STATUS
+                   ============================================= */
+
+          document.getElementById("route-status").textContent =
+            "✅ Route calculated successfully.";
+
+          /* =============================================
+                   ENABLE SAVE
+                   ============================================= */
+
+          document.getElementById("save-trip-button").disabled = false;
+
+          /* =============================================
+                   NOTE
+                   ============================================= */
+
+          document.getElementById("route-note").style.display = "block";
+
+          /* =============================================
+                   FIT MAP
+                   ============================================= */
+
+          const bounds = routeLayer.getBounds();
+
+          bounds.extend([startLat, startLng]);
+
+          bounds.extend([endLat, endLng]);
+
+          bounds.extend([roadEndLat, roadEndLng]);
+
+          map.fitBounds(bounds, {
+            padding: [40, 40],
+          });
+        })
+
+        /* =================================================
+               ERROR
+               ================================================= */
+
+        .catch((error) => {
+          console.error("Route error:", error);
+
+          document.getElementById("route-status").textContent =
+            "❌ Unable to calculate the route.";
+
+          document.getElementById("route-status").classList.add("error");
+
+          document.getElementById("route-distance").textContent = "Unavailable";
+
+          document.getElementById("route-duration").textContent = "Unavailable";
+        });
+
+      /* =====================================================
+           CSRF HELPER
+           ===================================================== */
+
+      function getCookie(name) {
+        let cookieValue = null;
+
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+
+          for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1),
+              );
+
+              break;
+            }
+          }
+        }
+
+        return cookieValue;
+      }
+
+      /* =====================================================
+           SAVE TRIP
+           ===================================================== */
+
+      document
+        .getElementById("save-trip-button")
+        .addEventListener("click", function () {
+          const button = this;
+
+          button.disabled = true;
+
+          button.textContent = "Saving...";
+
+          const tripData = {
+            title: "{{ place.name|escapejs }} → {{ service.name|escapejs }}",
+
+            start_location: "{{ place.name|escapejs }}",
+
+            destination: "{{ service.name|escapejs }}",
+
+            stops: [],
+
+            route_details: [
+              {
+                start: "{{ place.name|escapejs }}",
+
+                destination: "{{ service.name|escapejs }}",
+
+                distance: parseFloat(routeDistanceKm),
+
+                duration: routeDurationMinutes,
+
+                mode: "Driving",
+              },
+            ],
+
+            total_distance: parseFloat(routeDistanceKm),
+
+            total_duration: routeDurationMinutes,
+          };
+
+          fetch("{% url 'save_trip' %}", {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+
+            body: JSON.stringify(tripData),
+          })
+            .then((response) => response.json())
+
+            .then((data) => {
+              if (data.success) {
+                button.textContent = "✓ Trip Saved";
+
+                button.classList.add("saved");
+
+                document.getElementById("my-trips-link").classList.add("show");
+              } else {
+                throw new Error(data.message || "Unable to save trip.");
+              }
+            })
+
+            .catch((error) => {
+              console.error("Save trip error:", error);
+
+              button.disabled = false;
+
+              button.textContent = "🔖 Save Trip";
+
+              alert("Unable to save the trip. Please try again.");
+            });
+        });
+    </script>
+  </body>
+</html>

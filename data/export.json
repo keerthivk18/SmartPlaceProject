@@ -1,0 +1,1403 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-08-25T21:54:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 346611983,
+      "lat": 19.0425669,
+      "lon": 72.8188717,
+      "tags": {
+        "created_by": "Potlatch 0.10f",
+        "name": "Amphitheatre",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 494772647,
+      "lat": 19.0419788,
+      "lon": 72.8184995,
+      "tags": {
+        "name": "Castella de Aguada",
+        "name:es": "Castillo de Aguada",
+        "name:pt": "Castelo de Aguada",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 537762970,
+      "lat": 19.0509899,
+      "lon": 72.8601653,
+      "tags": {
+        "historic": "ruins",
+        "name": "Kala Qila",
+        "name:en": "Riwa Fort",
+        "tourism": "attraction",
+        "wikidata": "Q7338999",
+        "wikimedia_commons": "Category:Riwa Fort",
+        "wikipedia": "en:Riwa Fort"
+      }
+    },
+    {
+      "type": "node",
+      "id": 537766323,
+      "lat": 19.0420113,
+      "lon": 72.8381267,
+      "tags": {
+        "historic": "fort",
+        "name": "माहीम किल्ला",
+        "name:en": "Mahim Fort",
+        "tourism": "attraction",
+        "wikidata": "Q3633207",
+        "wikimedia_commons": "Category:Mahim Fort",
+        "wikipedia": "en:Mahim Fort"
+      }
+    },
+    {
+      "type": "node",
+      "id": 649025707,
+      "lat": 19.1324703,
+      "lon": 72.7946179,
+      "tags": {
+        "historic": "fort",
+        "name": "Madh Fort",
+        "place": "locality",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 674906629,
+      "lat": 18.9791636,
+      "lon": 72.8348012,
+      "tags": {
+        "name": "भाऊ दाजी लाड संग्रहालय",
+        "name:en": "Bhau Daji Lad Museum (Victoria & Albert Museum)",
+        "old_name": "Victoria & Albert Museum",
+        "tourism": "museum",
+        "wikidata": "Q5303985",
+        "wikimedia_commons": "Category:Dr. Bhau Daji Lad Museum",
+        "wikipedia": "en:Dr. Bhau Daji Lad Museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1070203946,
+      "lat": 19.2845098,
+      "lon": 72.8740885,
+      "tags": {
+        "name": "Landmark Heights Apartment Park",
+        "tourism": "theme_park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1579184280,
+      "lat": 19.1037194,
+      "lon": 72.8510068,
+      "tags": {
+        "name": "Loop Gallery",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1646526516,
+      "lat": 19.0279945,
+      "lon": 72.8365824,
+      "tags": {
+        "name": "Samyukta Maharashtra Daalan",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1973436453,
+      "lat": 18.9258376,
+      "lon": 72.8313854,
+      "tags": {
+        "addr:city": "Mumbai",
+        "name": "नॅशनल गॅलरी ऑफ मॉडर्न आर्ट",
+        "name:en": "National Gallery of Modern Art",
+        "name:hi": "राष्ट्रीय आधुनिक कला संग्रहालय",
+        "source": "local_knowledge",
+        "tourism": "museum",
+        "website": "https://www.ngmaindia.gov.in/",
+        "wikidata": "Q15261119",
+        "wikimedia_commons": "Category:National Gallery of Modern Art, Mumbai",
+        "wikipedia": "en:National Gallery of Modern Art, Mumbai"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2127352565,
+      "lat": 18.9630478,
+      "lon": 72.931902,
+      "tags": {
+        "historic": "ruins",
+        "name": "Elephanta Caves",
+        "name:en": "Elephanta Caves",
+        "name:mr": "एलिफंटा लेणी",
+        "natural": "cave_entrance",
+        "tourism": "attraction",
+        "website": "https://whc.unesco.org/en/list/244",
+        "wikidata": "Q649384",
+        "wikipedia": "en:Elephanta Caves"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2127352566,
+      "lat": 18.9627231,
+      "lon": 72.9316981,
+      "tags": {
+        "historic": "ruins",
+        "name": "Cave 3",
+        "name:mr": "घारापुरीची लेणी",
+        "natural": "cave_entrance",
+        "tourism": "attraction",
+        "website": "https://whc.unesco.org/en/list/244",
+        "wikidata": "Q649384",
+        "wikipedia": "en:Elephanta Caves"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2568671333,
+      "lat": 19.0421717,
+      "lon": 72.9280492,
+      "tags": {
+        "name": "Gender & Science Exhibit",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2841826659,
+      "lat": 18.9620892,
+      "lon": 72.9285928,
+      "tags": {
+        "historic": "cannon",
+        "name": "Cannon 1",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2841826660,
+      "lat": 18.9602159,
+      "lon": 72.9288297,
+      "tags": {
+        "historic": "cannon",
+        "name": "Cannon 2",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2841826661,
+      "lat": 18.9607979,
+      "lon": 72.9288871,
+      "tags": {
+        "name": "Bombay Skyline viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2851477517,
+      "lat": 19.0481951,
+      "lon": 72.8258974,
+      "tags": {
+        "denomination": "catholic",
+        "historic": "wayside_shrine",
+        "name": "St John The Baptist Shrine/Oratory",
+        "religion": "christian",
+        "start_date": "1781",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4048579847,
+      "lat": 18.9142991,
+      "lon": 72.8261446,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400005",
+        "addr:street": "Harbour Heights service road",
+        "name": "Go Bonkers",
+        "opening_hours": "Tu-Su 10:00-20:00",
+        "tourism": "theme_park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4119416792,
+      "lat": 18.9491882,
+      "lon": 72.8199216,
+      "tags": {
+        "name": "Taraporewala Aquarium",
+        "name:en": "Taraporewala Aquarium",
+        "name:hi": "तारापोरवाला मत्स्यालय",
+        "name:ml": "താരാപ്പൂർവാലാ അക്വേറിയം",
+        "tourism": "aquarium",
+        "wikidata": "Q31509",
+        "wikimedia_commons": "Category:Taraporewala Aquarium",
+        "wikipedia": "en:Taraporewala Aquarium"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4129555689,
+      "lat": 19.1756053,
+      "lon": 72.8414126,
+      "tags": {
+        "name": "Patidar Co Op Housing Society",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4230836350,
+      "lat": 18.9660503,
+      "lon": 72.8467717,
+      "tags": {
+        "amenity": "place_of_worship",
+        "description": "Chinese Temple dedicated to General Kwan Tai Kwon",
+        "name": "Kwan Tai Shek Temple",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4362564704,
+      "lat": 18.9255095,
+      "lon": 72.8199423,
+      "tags": {
+        "name": "art gallery",
+        "shop": "art",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4583583497,
+      "lat": 18.9253433,
+      "lon": 72.8180282,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:street": "Sir Dorab Tata Road",
+        "name": "Nariman Point",
+        "name:en": "Nariman Point",
+        "name:hi": "नरीमन पोइंट",
+        "opening_hours": "24/7",
+        "phone": "07828953774",
+        "tourism": "attraction",
+        "wikidata": "Q3632268",
+        "wikimedia_commons": "Category:Nariman Point",
+        "wikipedia": "en:Nariman Point"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4815555824,
+      "lat": 19.0468349,
+      "lon": 72.8201139,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400050",
+        "addr:street": "HK Bhaba Road",
+        "email": "srkfans@redchillies.com",
+        "name": "Mannat Lands End (Shah Rukh Khan's Bungalow)",
+        "opening_hours": "Mo-Sa 09:00-18:00",
+        "phone": "+91 (0)22-26058704",
+        "tourism": "attraction",
+        "website": "https://www.redchillies.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4815556924,
+      "lat": 19.0540346,
+      "lon": 72.8234836,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:housenumber": "3",
+        "addr:postcode": "400050",
+        "addr:street": "Byramji Jeejeebhoy Road",
+        "building": "apartments",
+        "name": "Galaxy (Salman Khan House)",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4978736822,
+      "lat": 18.92824,
+      "lon": 72.8325781,
+      "tags": {
+        "name": "Artisans' Center for Art, Craft & Design",
+        "name:en": "Artisans' Center for Art, Craft & Design",
+        "shop": "clothes;art;handicraft",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5056120381,
+      "lat": 19.0466884,
+      "lon": 72.8777111,
+      "tags": {
+        "air_conditioning": "yes",
+        "museum": "history",
+        "name": "BEST Museum",
+        "opening_hours": "Mo-Su 10:00-21:00",
+        "operator": "MCGC",
+        "operator:type": "government",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5360967180,
+      "lat": 19.0260183,
+      "lon": 73.0100097,
+      "tags": {
+        "addr:city": "Navi Mumbai",
+        "addr:housenumber": "Seawoods",
+        "addr:postcode": "400706",
+        "addr:street": "Jewel of Navi Mumbai",
+        "name": "Jewel of Navi Mumbai",
+        "operator": "NMMC",
+        "tourism": "attraction",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5380297057,
+      "lat": 18.9637178,
+      "lon": 72.8038864,
+      "tags": {
+        "name": "Mount Blanc View Gallery",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5882322886,
+      "lat": 19.140891,
+      "lon": 72.9181131,
+      "tags": {
+        "name": "Sameer Hill",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5913743689,
+      "lat": 19.2546034,
+      "lon": 72.969503,
+      "tags": {
+        "name": "Har Har Gange Waterfalls",
+        "tourism": "attraction",
+        "waterway": "waterfall"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5923940632,
+      "lat": 19.2099918,
+      "lon": 72.9657304,
+      "tags": {
+        "name": "Singhania DC3",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6052636216,
+      "lat": 18.934005,
+      "lon": 72.8361829,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Sir Pheroze Shah Mehta Road",
+        "name": "RBI Monetary Museum",
+        "operator": "Reserve Bank of India",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6292979383,
+      "lat": 18.963524,
+      "lon": 72.9313163,
+      "tags": {
+        "historic": "ruins",
+        "name": "Elephanta Caves",
+        "name:mr": "घारापुरीची लेणी",
+        "natural": "cave_entrance",
+        "tourism": "attraction",
+        "website": "https://whc.unesco.org/en/list/244",
+        "wikidata": "Q649384",
+        "wikipedia": "en:Elephanta Caves"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6784511247,
+      "lat": 19.1298921,
+      "lon": 72.9103509,
+      "tags": {
+        "name": "Powai Lake Viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6813467113,
+      "lat": 19.042924,
+      "lon": 72.8185972,
+      "tags": {
+        "name": "Bandra Fort Gate",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7017923087,
+      "lat": 18.9549022,
+      "lon": 72.8048874,
+      "tags": {
+        "name": "कमला नेहरू पार्क",
+        "name:en": "Kamala Nehru Park",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7019038585,
+      "lat": 19.2093238,
+      "lon": 72.9163268,
+      "tags": {
+        "name": "संजय गांधी राष्ट्रीय उद्यान",
+        "name:en": "Sanjay Gandhi National Park",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7028122887,
+      "lat": 19.0260441,
+      "lon": 72.8421832,
+      "tags": {
+        "name": "मातोश्री टॉवर",
+        "name:en": "Matoshree Tower",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7643000685,
+      "lat": 19.0132827,
+      "lon": 73.0162684,
+      "tags": {
+        "name": "I Love Seawoods",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8084252882,
+      "lat": 18.9282503,
+      "lon": 72.8322605,
+      "tags": {
+        "artwork_type": "modern, Indian",
+        "name": "Delhi Art Gallery",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9447540847,
+      "lat": 18.9353781,
+      "lon": 72.8321868,
+      "tags": {
+        "addr:street": "Queens Mansion, 3rd floor, G. Talwatkar Marg, Fort, Mumbai, Maharashtra 400001",
+        "description": "Enduring gallery exhibiting contemporary works in various media by Indian & international artists.",
+        "name": "Chemould Prescott Road",
+        "opening_hours": "Mo-Sa 10:00-18:00",
+        "phone": "022 2200 0211",
+        "tourism": "gallery",
+        "website": "https://www.gallerychemould.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10196823117,
+      "lat": 19.2555018,
+      "lon": 72.9841195,
+      "tags": {
+        "addr:postcode": "400607",
+        "addr:street": "Hiranandani Estate",
+        "check_date": "2026-06-14",
+        "name": "The Walk",
+        "tourism": "attraction",
+        "website": "https://hiranandani.com/Thewalk.aspx"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10552506472,
+      "lat": 19.1681335,
+      "lon": 72.8572673,
+      "tags": {
+        "name": "Archdiocesan Heritage Museum",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10608367505,
+      "lat": 19.059634,
+      "lon": 72.8343142,
+      "tags": {
+        "name": "Cache The Arts And Crafts Gallery",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10706428289,
+      "lat": 19.0418105,
+      "lon": 73.0351865,
+      "tags": {
+        "name": "Parsik Hills Quarry Viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10732503490,
+      "lat": 19.0416956,
+      "lon": 73.0362166,
+      "tags": {
+        "name": "Belapur Waterfall",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10732605504,
+      "lat": 19.0314533,
+      "lon": 73.0476869,
+      "tags": {
+        "direction": "250",
+        "name": "Belapur Viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10777556359,
+      "lat": 19.2258467,
+      "lon": 72.8717566,
+      "tags": {
+        "name": "Gandhi Tekdi",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10779234830,
+      "lat": 19.0652259,
+      "lon": 72.8668857,
+      "tags": {
+        "name": "The Art House",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10896304854,
+      "lat": 19.0225814,
+      "lon": 73.0291933,
+      "tags": {
+        "name": "Parsik Hill Viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11022219695,
+      "lat": 19.0524841,
+      "lon": 72.8626505,
+      "tags": {
+        "name": "Nature Education Centre",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11611029000,
+      "lat": 19.2283841,
+      "lon": 72.9897479,
+      "tags": {
+        "direction": "10",
+        "name": "Observation Deck",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11697760314,
+      "lat": 19.1229152,
+      "lon": 72.9069326,
+      "tags": {
+        "name": "Powai Vatika",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11887158672,
+      "lat": 19.032131,
+      "lon": 73.047857,
+      "tags": {
+        "direction": "250",
+        "name": "Heaven's Peak Viewpoint Belapur",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11887158679,
+      "lat": 19.0324962,
+      "lon": 73.0478876,
+      "tags": {
+        "direction": "250",
+        "name": "Shangri-La",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12307248579,
+      "lat": 19.0603027,
+      "lon": 72.8549071,
+      "tags": {
+        "level": "-2",
+        "name": "Mumbai Metro Photo Gallery",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12386067450,
+      "lat": 19.1800792,
+      "lon": 72.9396345,
+      "tags": {
+        "name": "GSLV Rocket Model",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12389469713,
+      "lat": 19.1812907,
+      "lon": 72.9320048,
+      "tags": {
+        "name": "Tulsi Lake View",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12842089410,
+      "lat": 19.1049088,
+      "lon": 72.8275345,
+      "tags": {
+        "name": "Jalsa (Amitabh Bacchan House)",
+        "name:en": "Jalsa (Amitabh Bacchan House)",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12850034015,
+      "lat": 19.1888935,
+      "lon": 72.9347212,
+      "tags": {
+        "name": "Tulsi Lake Viewpoint",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13091770542,
+      "lat": 19.0995051,
+      "lon": 72.9168447,
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:district": "Ghatkopar West",
+        "addr:postcode": "400086",
+        "addr:street": "Lal Bahadur Shastri Marg",
+        "fixme": "I don't know where in the mall this is",
+        "name": "KidZania",
+        "tourism": "theme_park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13094303210,
+      "lat": 19.1600264,
+      "lon": 72.8389801,
+      "tags": {
+        "name": "Fortune Heights",
+        "tourism": "theme_park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13464039888,
+      "lat": 18.9362861,
+      "lon": 72.8317871,
+      "tags": {
+        "email": "mumbai@paradoxmuseum.com",
+        "fee": "yes",
+        "mobile": "+91 79774 93526",
+        "name": "Paradox Museum",
+        "name:en": "Paradox Museum",
+        "name:mr": "पॅराडॉक्स म्युझियम",
+        "opening_hours": "Mo-Fr 11:00-20:00; Sa-Su 11:00-20:30",
+        "phone": "+91 22 2082 2829",
+        "tourism": "museum",
+        "website": "https://paradoxmuseum.com/mumbai/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13577417278,
+      "lat": 18.9565193,
+      "lon": 72.8060382,
+      "tags": {
+        "name": "Echo Point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13589489135,
+      "lat": 19.143921,
+      "lon": 72.8240079,
+      "tags": {
+        "fee": "no",
+        "name": "Larezna Art Gallery",
+        "opening_hours": "Mo-Su 12:00-22:00",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13990919364,
+      "lat": 19.1392186,
+      "lon": 72.9571339,
+      "tags": {
+        "name": "Bhandup Bird Watching Point",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14078518478,
+      "lat": 19.1821711,
+      "lon": 72.9825601,
+      "tags": {
+        "name": "Cannon Museum",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14100502703,
+      "lat": 18.9286397,
+      "lon": 72.832281,
+      "tags": {
+        "name": "Moksh",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14101276024,
+      "lat": 18.9553494,
+      "lon": 72.8210002,
+      "tags": {
+        "name": "47A",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14119124912,
+      "lat": 19.0056826,
+      "lon": 72.8273915,
+      "tags": {
+        "name": "Museum of Solutions",
+        "phone": "+91 8828481000",
+        "short_name": "MuSo",
+        "tourism": "museum",
+        "website": "https://www.museumofsolutions.in/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 38718204,
+      "center": {
+        "lat": 18.9454866,
+        "lon": 72.7936879
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "name": "Banganga Tank",
+        "natural": "water",
+        "tourism": "attraction",
+        "water": "reservoir",
+        "wikidata": "Q4855094",
+        "wikimedia_commons": "Category:Banganga Tank",
+        "wikipedia": "en:Banganga Tank"
+      }
+    },
+    {
+      "type": "way",
+      "id": 38718382,
+      "center": {
+        "lat": 18.9543869,
+        "lon": 72.8114236
+      },
+      "tags": {
+        "name": "Girgaum Chowpatty Beach",
+        "name:en": "Girgaum Chowpatty Beach",
+        "name:hi": "गिरगांव चौपाटी",
+        "name:mr": "गिरगाव चौपाटी",
+        "natural": "beach",
+        "surface": "sand",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 39835569,
+      "center": {
+        "lat": 18.9598898,
+        "lon": 72.8114984
+      },
+      "tags": {
+        "building": "historic",
+        "description": "Mahatma Ghandi's home 1917-1932",
+        "name": "Mani Bhavan",
+        "tourism": "museum",
+        "wikidata": "Q3634413",
+        "wikimedia_commons": "Category:Mani Bhavan",
+        "wikipedia": "en:Mani Bhavan"
+      }
+    },
+    {
+      "type": "way",
+      "id": 49001325,
+      "center": {
+        "lat": 18.9473287,
+        "lon": 72.8345502
+      },
+      "tags": {
+        "amenity": "marketplace",
+        "landuse": "retail",
+        "name": "Crawford Market",
+        "name:etymology:wikidata": "Q4798356",
+        "official_name": "Mahatma Jyotiba Phule Mandai",
+        "official_name:etymology:wikidata": "Q314394",
+        "official_name:hi": "महात्मा ज्योतिबा फुले मंडई",
+        "tourism": "attraction",
+        "wikidata": "Q5182895",
+        "wikimedia_commons": "Category:Crawford Market",
+        "wikipedia": "en:Crawford Market"
+      }
+    },
+    {
+      "type": "way",
+      "id": 49422950,
+      "center": {
+        "lat": 19.2327497,
+        "lon": 72.8055268
+      },
+      "tags": {
+        "name": "Essel World and Water Kingdom",
+        "opening_hours": "Mo-Su 10:00-18:30",
+        "operator": "Pan India Paryatan Pvt. Ltd.",
+        "tourism": "theme_park",
+        "website": "https://www.waterkingdom.in/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 53361712,
+      "center": {
+        "lat": 19.0237394,
+        "lon": 72.8168371
+      },
+      "tags": {
+        "barrier": "city_wall",
+        "building": "yes",
+        "historic": "fort",
+        "name": "Worli Fort",
+        "name:en": "Worli Fort",
+        "name:mr": "वरळी किल्ला",
+        "name:zh": "沃利堡",
+        "tourism": "attraction",
+        "wikipedia": "en:Worli Fort"
+      }
+    },
+    {
+      "type": "way",
+      "id": 53369531,
+      "center": {
+        "lat": 18.9791705,
+        "lon": 72.8348102
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400027",
+        "building": "yes",
+        "name": "Dr. Bhau Daji Lad Museum",
+        "tourism": "museum",
+        "wikidata": "Q5303985",
+        "wikipedia": "en:Dr. Bhau Daji Lad Museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 55794887,
+      "center": {
+        "lat": 18.9956242,
+        "lon": 72.8615436
+      },
+      "tags": {
+        "area": "yes",
+        "man_made": "pier",
+        "name": "Flamingo Point",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 73045131,
+      "center": {
+        "lat": 19.1205355,
+        "lon": 72.8399617
+      },
+      "tags": {
+        "name": "Gilbert Hill",
+        "natural": "bare_rock",
+        "protected": "yes",
+        "tourism": "attraction",
+        "wikidata": "Q8519695",
+        "wikimedia_commons": "Category:Gilbert Hill",
+        "wikipedia": "en:Gilbert Hill"
+      }
+    },
+    {
+      "type": "way",
+      "id": 79304233,
+      "center": {
+        "lat": 18.9481291,
+        "lon": 72.8323712
+      },
+      "tags": {
+        "amenity": "marketplace",
+        "building": "retail",
+        "landuse": "retail",
+        "name": "Mangaldas Market",
+        "name:en": "Mangaldas Market",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 107441516,
+      "center": {
+        "lat": 18.9398631,
+        "lon": 72.8354028
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "building:levels": "7",
+        "building:part": "train_station",
+        "description": "WHC-protected part of the station complex.",
+        "heritage": "1",
+        "heritage:operator": "whc",
+        "loc_name": "Chhatrapati Shivaji Terminus",
+        "loc_name:en": "Chhatrapati Shivaji Terminus",
+        "loc_name:hi": "छत्रपती शिवाजी टर्मिनस",
+        "loc_name:mr": "छत्रपती शिवाजी टर्मिनस",
+        "name": "Chhatrapati Shivaji Maharaj Terminus",
+        "name:en": "Chhatrapati Shivaji Maharaj Terminus",
+        "name:hi": "छत्रपती शिवाजी महाराज टर्मिनस",
+        "name:mr": "छत्रपती शिवाजी महाराज टर्मिनस",
+        "name:ur": "چھترپتی شیواجی مہاراج ٹرمینس",
+        "old_name": "Victoria Terminus",
+        "old_name:en": "Victoria Terminus",
+        "old_name:fr": "Gare de Victoria",
+        "old_name:hi": "व्हिक्टोरिया टर्मिनस",
+        "old_name:mr": "व्हिक्टोरिया टर्मिनस",
+        "operator": "Central Railway",
+        "ref:whc": "945",
+        "short_name": "CSMT;CST;VT",
+        "short_name:en": "CSMT;CST;VT",
+        "short_name:hi": "सीएसएमटी;सीएसटी;व्हीटी",
+        "short_name:mr": "सीएसएमटी;सीएसटी;व्हीटी",
+        "tourism": "attraction",
+        "whc:criteria": "(ii),(iv)",
+        "whc:inscription_date": "2004",
+        "wheelchair": "yes",
+        "wikidata": "Q235884",
+        "wikipedia": "en:Chhatrapati Shivaji Terminus"
+      }
+    },
+    {
+      "type": "way",
+      "id": 112796885,
+      "center": {
+        "lat": 18.9781478,
+        "lon": 72.8367841
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400027",
+        "alt_name": "Rani Baug",
+        "barrier": "wall",
+        "fee": "yes",
+        "name": "Veermata Jijabai Bhosale Zoo & Botanical Garden",
+        "name:etymology:wikidata": "Q6192525",
+        "old_name": "Victoria Gardens",
+        "opening_hours": "Th-Tu 09:30-18:00",
+        "tourism": "zoo",
+        "wikidata": "Q647766"
+      }
+    },
+    {
+      "type": "way",
+      "id": 128971258,
+      "center": {
+        "lat": 19.2382315,
+        "lon": 72.9665907
+      },
+      "tags": {
+        "landuse": "forest",
+        "name": "Tikujiniwadi Water Park",
+        "tourism": "theme_park",
+        "wikidata": "Q7801984",
+        "wikipedia": "en:Tikuji-Ni-Wadi"
+      }
+    },
+    {
+      "type": "way",
+      "id": 204704714,
+      "center": {
+        "lat": 19.151039,
+        "lon": 72.7867132
+      },
+      "tags": {
+        "AND_a_nosr_p": "10004289",
+        "name": "Madh Chowpatty",
+        "name:hi": "मढ चौपाटी",
+        "natural": "beach",
+        "source": "AND",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 206808196,
+      "center": {
+        "lat": 18.9268827,
+        "lon": 72.8326589
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:housenumber": "159-161",
+        "addr:postcode": "400023",
+        "addr:street": "Mahatma Gandhi Road",
+        "building": "yes",
+        "building:levels": "3",
+        "check_date": "2026-03-12",
+        "fee": "yes",
+        "layer": "1",
+        "name": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya",
+        "name:etymology:wikidata": "Q239505",
+        "name:hi": "छत्रपती शिवाजी महाराज वस्तूसंग्रहालय",
+        "old_name": "Prince of Wales Museum of Western India",
+        "opening_hours": "Tu-Su 10:15-18:00",
+        "tourism": "museum",
+        "website": "https://csmvs.in/",
+        "wikidata": "Q1071500",
+        "wikimedia_commons": "Category:Chhatrapati Shivaji Maharaj Vastu Sangrahalaya",
+        "wikipedia": "en:Chhatrapati Shivaji Maharaj Vastu Sangrahalaya"
+      }
+    },
+    {
+      "type": "way",
+      "id": 206808197,
+      "center": {
+        "lat": 18.9272846,
+        "lon": 72.8317177
+      },
+      "tags": {
+        "addr:city": "Mumbai",
+        "addr:postcode": "400001",
+        "addr:street": "Mahatma Gandhi Road",
+        "artwork_type": "painting",
+        "building": "commercial",
+        "name": "Jehangir Art Gallery",
+        "tourism": "gallery",
+        "wikidata": "Q6176452",
+        "wikimedia_commons": "Category:Jehangir Art Gallery",
+        "wikipedia": "en:Jehangir Art Gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 356425974,
+      "center": {
+        "lat": 19.0516645,
+        "lon": 72.8327767
+      },
+      "tags": {
+        "name": "The Bombay Art Society",
+        "opening_hours": "Mo-Su 11:00-19:00",
+        "phone": "022 2651 3466",
+        "tourism": "gallery",
+        "website": "https://bombayartsociety.org/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 369460776,
+      "center": {
+        "lat": 19.2064728,
+        "lon": 72.9061474
+      },
+      "tags": {
+        "historic": "archaeological_site",
+        "name": "Kanheri Cave Complex",
+        "natural": "bare_rock",
+        "tourism": "attraction",
+        "wikidata": "Q1356198"
+      }
+    },
+    {
+      "type": "way",
+      "id": 431512593,
+      "center": {
+        "lat": 19.046611,
+        "lon": 72.8676018
+      },
+      "tags": {
+        "addr:postcode": "400022",
+        "addr:street": "Road No 1",
+        "building": "yes",
+        "historic": "castle",
+        "name": "सायन किल्ला",
+        "name:en": "Sion Fort",
+        "opening_hours": "Mo-Su 04:00-20:00",
+        "phone": "1800229930",
+        "protected": "yes",
+        "tourism": "attraction",
+        "website": "https://www.maharashtratourism.gov.in/",
+        "wikidata": "Q7525357",
+        "wikimedia_commons": "Category:Sion Fort",
+        "wikipedia": "en:Sion Hillock Fort"
+      }
+    },
+    {
+      "type": "way",
+      "id": 626249301,
+      "center": {
+        "lat": 19.0005078,
+        "lon": 72.8601265
+      },
+      "tags": {
+        "historic": "fort",
+        "name": "Sewri Fort",
+        "tourism": "attraction",
+        "wikidata": "Q7458299",
+        "wikimedia_commons": "Category:Sewri Fort",
+        "wikipedia": "en:Sewri Fort"
+      }
+    },
+    {
+      "type": "way",
+      "id": 628861196,
+      "center": {
+        "lat": 19.1328938,
+        "lon": 72.89823
+      },
+      "tags": {
+        "name": "Vedic Park",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 629094962,
+      "center": {
+        "lat": 19.1547465,
+        "lon": 72.895178
+      },
+      "tags": {
+        "name": "Film City Temple",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 629094968,
+      "center": {
+        "lat": 19.1639912,
+        "lon": 72.8888355
+      },
+      "tags": {
+        "description": "Set of rural Indian village used for film shootings",
+        "landuse": "commercial",
+        "name": "Abu Village",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 979386029,
+      "center": {
+        "lat": 18.9906494,
+        "lon": 72.8187964
+      },
+      "tags": {
+        "museum": "science",
+        "name": "Nehru Science Centre",
+        "name:etymology:wikidata": "Q1047",
+        "subject": "science",
+        "tourism": "museum",
+        "wikidata": "Q6987907",
+        "wikipedia": "en:Nehru Science Centre"
+      }
+    },
+    {
+      "type": "way",
+      "id": 988399692,
+      "center": {
+        "lat": 18.9264301,
+        "lon": 73.0158602
+      },
+      "tags": {
+        "name": "Shivaji Maharaj And Ramdas Statue",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1123427069,
+      "center": {
+        "lat": 19.1076103,
+        "lon": 72.842898
+      },
+      "tags": {
+        "landuse": "recreation_ground",
+        "name": "Dolphin Aquarium",
+        "tourism": "aquarium"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1158933420,
+      "center": {
+        "lat": 19.2348955,
+        "lon": 72.875188
+      },
+      "tags": {
+        "name": "Tiger & Lion Safari",
+        "tourism": "zoo",
+        "zoo": "safari_park"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1160064880,
+      "center": {
+        "lat": 19.0305665,
+        "lon": 73.0364893
+      },
+      "tags": {
+        "fee": "yes",
+        "name": "Butterfly Park",
+        "operator": "Sector 9 Residents Association",
+        "tourism": "zoo",
+        "zoo": "wildlife_park"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1289189671,
+      "center": {
+        "lat": 19.0284402,
+        "lon": 72.836641
+      },
+      "tags": {
+        "name": "वीर सावरकर स्मारक",
+        "name:en": "Veer Savarkar Smarak",
+        "name:hi": "वीर सावरकर स्मारक",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1329343138,
+      "center": {
+        "lat": 18.9260723,
+        "lon": 72.8330638
+      },
+      "tags": {
+        "check_date": "2026-03-12",
+        "name": "CSMVS Children’s Museum",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 8757021,
+      "center": {
+        "lat": 19.1582914,
+        "lon": 72.8901245
+      },
+      "tags": {
+        "alt_name": "Mumbai Film City",
+        "amenity": "studio",
+        "landuse": "commercial",
+        "name": "Dadasaheb Phalke Chitranagari",
+        "name:en": "Dadasaheb Phalke Film City",
+        "name:hi": "मुम्बई फ़िल्म सिटी",
+        "studio": "video",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "website": "https://www.filmcitymumbai.org/",
+        "wikidata": "Q3072027"
+      }
+    }
+  ]
+}

@@ -1,0 +1,694 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Plan Your Route | SmartPlace</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+      .planner-page {
+        min-height: 100vh;
+        background: #f8fafc;
+        padding: 45px 20px 70px;
+      }
+
+      .planner-container {
+        max-width: 1100px;
+        margin: auto;
+      }
+
+      .planner-back {
+        display: inline-block;
+        margin-bottom: 25px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .planner-heading {
+        text-align: center;
+        margin-bottom: 35px;
+      }
+
+      .planner-heading span {
+        display: inline-block;
+        padding: 8px 15px;
+        border: 1px solid #bfdbfe;
+        border-radius: 30px;
+        color: #2563eb;
+        background: #eff6ff;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .planner-heading h1 {
+        margin: 15px 0 10px;
+        color: #172033;
+        font-size: 40px;
+      }
+
+      .planner-heading p {
+        color: #64748b;
+      }
+
+      .planner-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+      }
+
+      .location-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .location-field label {
+        display: block;
+        margin-bottom: 8px;
+        color: #172033;
+        font-weight: 700;
+      }
+
+      .location-input {
+        width: 100%;
+        box-sizing: border-box;
+        height: 52px;
+        padding: 0 16px;
+        border: 1px solid #dbe5f1;
+        border-radius: 11px;
+        background: #f8fafc;
+        outline: none;
+        font-size: 14px;
+      }
+
+      .location-input:focus {
+        border-color: #2563eb;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      .planner-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .planner-btn {
+        min-height: 46px;
+        padding: 0 22px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        font-family: inherit;
+      }
+
+      .current-location-btn {
+        background: white;
+        border: 1px solid #dbe5f1;
+        color: #2563eb;
+      }
+
+      .calculate-btn {
+        background: #2563eb;
+        color: white;
+      }
+
+      .calculate-btn:hover {
+        background: #1d4ed8;
+      }
+
+      .planner-status {
+        min-height: 22px;
+        margin: 18px 0;
+        text-align: center;
+        color: #64748b;
+      }
+
+      .route-result {
+        display: none;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .result-card {
+        padding: 18px;
+        background: #eff6ff;
+        border-radius: 13px;
+      }
+
+      .result-card small {
+        display: block;
+        color: #64748b;
+        margin-bottom: 5px;
+      }
+
+      .result-card strong {
+        color: #172033;
+        font-size: 18px;
+      }
+
+      #planner-map {
+        width: 100%;
+        height: 500px;
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+      }
+
+      .stops-section {
+        margin-top: 28px;
+        padding-top: 25px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .stops-section h2 {
+        color: #172033;
+        margin-top: 0;
+      }
+
+      .stop-note {
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      @media (max-width: 700px) {
+        .location-row {
+          grid-template-columns: 1fr;
+        }
+
+        .planner-actions {
+          flex-direction: column;
+        }
+
+        .planner-btn {
+          width: 100%;
+        }
+
+        .route-result {
+          grid-template-columns: 1fr;
+        }
+
+        .planner-heading h1 {
+          font-size: 30px;
+        }
+
+        #planner-map {
+          height: 380px;
+        }
+      }
+      .trip-locations {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .trip-stop {
+        position: relative;
+      }
+
+      .stop-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .stop-header label {
+        color: #172033;
+        font-weight: 700;
+      }
+
+      .remove-stop {
+        border: none;
+        background: #fee2e2;
+        color: #dc2626;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .add-stop-btn {
+        align-self: flex-start;
+        padding: 10px 16px;
+        border: 1px dashed #2563eb;
+        background: #eff6ff;
+        color: #2563eb;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .add-stop-btn:hover {
+        background: #dbeafe;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="{% url 'home' %}" class="brand">
+          <span class="brand-icon">📍</span>
+          <span class="brand-name"> Smart<span>Place</span> </span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="{% url 'home' %}">Explore</a>
+          <a href="{% url 'home' %}#categories">Categories</a>
+          <a href="{% url 'home' %}#why-smartplace">Features</a>
+
+          {% if user.is_authenticated %}
+          <span class="profile-name"> {{ user.username }} </span>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="planner-page">
+      <div class="planner-container">
+        <a href="{% url 'home' %}" class="planner-back">
+          ← Back to SmartPlace
+        </a>
+
+        <div class="planner-heading">
+          <span>🗺️ SMART ROUTE PLANNER</span>
+
+          <h1>Plan Your Journey</h1>
+
+          <p>
+            Choose your starting point and destination to calculate a driving
+            route.
+          </p>
+        </div>
+
+        <div class="planner-card">
+          <div class="trip-locations">
+            <div class="location-field">
+              <label for="planner-from">📍 Starting Point</label>
+
+              <input
+                id="planner-from"
+                class="location-input"
+                type="text"
+                placeholder="Enter starting location"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="location-field">
+              <label for="planner-to"> 📌 To </label>
+
+              <input
+                id="planner-to"
+                class="location-input"
+                type="text"
+                placeholder="Enter destination"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="planner-actions">
+              <button
+                type="button"
+                id="planner-current-location"
+                class="planner-btn current-location-btn"
+              >
+                📍 Use Current Location
+              </button>
+
+              <button
+                type="button"
+                id="planner-calculate"
+                class="planner-btn calculate-btn"
+              >
+                🧭 Calculate Trip
+              </button>
+            </div>
+
+            <p id="planner-status" class="planner-status"></p>
+
+            <div id="planner-result" class="route-result" style="display: none">
+              <h2 class="trip-summary-title">🗺️ Your Trip Summary</h2>
+
+              <div class="result-card">
+                <small>📏 Total Distance</small>
+                <strong id="planner-distance">--</strong>
+              </div>
+
+              <div class="result-card">
+                <small>⏱️ Total Estimated Time</small>
+                <strong id="planner-duration">--</strong>
+              </div>
+
+              <div class="result-card">
+                <small>🚗 Travel Mode</small>
+                <strong>Driving</strong>
+              </div>
+
+              <div class="trip-legs-section">
+                <h3>📍 Route Details</h3>
+                <div id="planner-legs"></div>
+              </div>
+
+              <button
+                type="button"
+                id="save-trip-btn"
+                class="planner-btn calculate-btn"
+                onclick="saveTrip()"
+              >
+                💾 Save Trip
+              </button>
+            </div>
+          </div>
+
+          <div id="planner-map"></div>
+
+          <div class="stops-section">
+            <h2>🧳 Trip Planning</h2>
+
+            <p class="stop-note">
+              Multi-stop trip planning will allow you to add places such as
+              Gateway of India, Marine Drive, CSMT and other destinations to one
+              journey.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const fromInput = document.getElementById("planner-from");
+        const calculateBtn = document.getElementById("planner-calculate");
+        const currentBtn = document.getElementById("planner-current-location");
+        const status = document.getElementById("planner-status");
+        const result = document.getElementById("planner-result");
+        const distance = document.getElementById("planner-distance");
+        const duration = document.getElementById("planner-duration");
+
+        const map = L.map("planner-map").setView([19.076, 72.8777], 11);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors, Tiles style by HOT",
+        }).addTo(map);
+
+        let routeLayers = [];
+        let calculatedTripData = null;
+        let markers = [];
+        let currentLocation = null;
+
+        // =========================================
+        // FIND LOCATION
+        // =========================================
+
+        async function findLocation(text) {
+          const response = await fetch(
+            "{% url 'geocode' %}?q=" + encodeURIComponent(text),
+          );
+
+          if (!response.ok) {
+            throw new Error("Location search failed.");
+          }
+
+          const data = await response.json();
+
+          if (data.lat == null || data.lon == null) {
+            throw new Error("Location not found: " + text);
+          }
+
+          return {
+            lat: Number(data.lat),
+            lon: Number(data.lon),
+          };
+        }
+
+        // =========================================
+        // USE CURRENT LOCATION
+        // =========================================
+
+        currentBtn.addEventListener("click", function () {
+          if (!navigator.geolocation) {
+            status.textContent = "Location is not supported.";
+            return;
+          }
+
+          status.textContent = "Getting your current location...";
+
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              currentLocation = {
+                lat: position.coords.latitude,
+                lon: position.coords.longitude,
+              };
+
+              fromInput.value =
+                currentLocation.lat.toFixed(6) +
+                ", " +
+                currentLocation.lon.toFixed(6);
+
+              status.textContent = "Current location selected.";
+            },
+
+            function () {
+              status.textContent = "Could not access your location.";
+            },
+          );
+        });
+
+        // CALCULATE TRIP
+        // CALCULATE TRIP
+        calculateBtn.addEventListener("click", async function () {
+          const fromText = fromInput.value.trim();
+
+          const toInput = document.getElementById("planner-to");
+          const destinations = [toInput.value.trim()].filter(Boolean);
+          if (!fromText || destinations.length === 0) {
+            status.textContent =
+              "Enter a starting point and at least one destination.";
+            return;
+          }
+
+          calculateBtn.disabled = true;
+          result.style.display = "none";
+          status.textContent = "Calculating your trip...";
+
+          try {
+            let start;
+
+            const currentText = currentLocation
+              ? currentLocation.lat.toFixed(6) +
+                ", " +
+                currentLocation.lon.toFixed(6)
+              : "";
+
+            if (currentLocation && fromText === currentText) {
+              start = currentLocation;
+            } else {
+              start = await findLocation(fromText);
+            }
+
+            const points = [start];
+
+            for (const destination of destinations) {
+              points.push(await findLocation(destination));
+            }
+
+            routeLayers.forEach((layer) => map.removeLayer(layer));
+            markers.forEach((marker) => map.removeLayer(marker));
+
+            routeLayers = [];
+            markers = [];
+
+            let totalDistance = 0;
+            let routeDetails = [];
+            let totalDuration = 0;
+
+            const allBounds = L.latLngBounds([]);
+            const legsContainer = document.getElementById("planner-legs");
+
+            legsContainer.innerHTML = "";
+
+            for (let i = 0; i < points.length - 1; i++) {
+              const a = points[i];
+              const b = points[i + 1];
+
+              const fromName = i === 0 ? fromText : destinations[i - 1];
+              const toName = destinations[i];
+
+              const url =
+                "{% url 'route_api' %}" +
+                "?start_lat=" +
+                encodeURIComponent(a.lat) +
+                "&start_lon=" +
+                encodeURIComponent(a.lon) +
+                "&end_lat=" +
+                encodeURIComponent(b.lat) +
+                "&end_lon=" +
+                encodeURIComponent(b.lon) +
+                "&profile=driving-car";
+
+              const response = await fetch(url);
+              const data = await response.json();
+
+              if (!response.ok || !data.routes || !data.routes.length) {
+                throw new Error(data.error || "Could not calculate route.");
+              }
+
+              const route = data.routes[0];
+
+              const legDistance = route.summary.distance;
+              const legDuration = route.summary.duration;
+              routeDetails.push({
+                from: fromName,
+                to: toName,
+                distance: legDistance,
+                duration: legDuration,
+              });
+
+              totalDistance += legDistance;
+              totalDuration += legDuration;
+
+              const layer = L.geoJSON(route.geometry, {
+                style: {
+                  weight: 6,
+                  opacity: 0.9,
+                },
+              }).addTo(map);
+
+              routeLayers.push(layer);
+              allBounds.extend(layer.getBounds());
+
+              // Show each journey leg separately
+              const legCard = document.createElement("div");
+              legCard.className = "result-card";
+
+              legCard.innerHTML = `
+                      <small>🚗 Route ${i + 1}</small>
+                      <strong>${fromName} → ${toName}</strong>
+                      <p>📏 Distance: ${(legDistance / 1000).toFixed(2)} km</p>
+                      <p>⏱️ Estimated time: ${Math.max(1, Math.round(legDuration / 60))} min</p>
+                  `;
+
+              legsContainer.appendChild(legCard);
+            }
+
+            points.forEach(function (point, index) {
+              const label =
+                index === 0 ? "Starting Point" : destinations[index - 1];
+
+              const marker = L.marker([point.lat, point.lon])
+                .addTo(map)
+                .bindPopup(label);
+
+              markers.push(marker);
+              allBounds.extend([point.lat, point.lon]);
+            });
+
+            distance.textContent = (totalDistance / 1000).toFixed(2) + " km";
+
+            duration.textContent =
+              Math.max(1, Math.round(totalDuration / 60)) + " min";
+
+            window.calculatedTripData = {
+              title: fromText + " to " + destinations[destinations.length - 1],
+              start_location: fromText,
+              destination: destinations[destinations.length - 1],
+              stops: destinations,
+              route_details: routeDetails,
+              total_distance: totalDistance / 1000,
+              total_duration: Math.round(totalDuration),
+            };
+            result.style.display = "grid";
+            status.textContent = "Your trip has been calculated.";
+
+            map.fitBounds(allBounds, { padding: [35, 35] });
+          } catch (error) {
+            console.error("Trip error:", error);
+            status.textContent = "Error: " + error.message;
+          } finally {
+            calculateBtn.disabled = false;
+          }
+        });
+
+        updateStopNumbers();
+        // SAVE TRIP
+      });
+    </script>
+
+    <script src="{% static 'js/route_planner.js' %}?v=3"></script>
+    <script>
+      async function saveTrip() {
+        const button = document.getElementById("save-trip-btn");
+        const status = document.getElementById("planner-status");
+
+        if (!window.calculatedTripData) {
+          status.textContent = "Please calculate your trip first.";
+          return;
+        }
+
+        button.disabled = true;
+        status.textContent = "Saving your trip...";
+
+        try {
+          const response = await fetch("{% url 'save_trip' %}", {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+
+            body: JSON.stringify(window.calculatedTripData),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Could not save trip.");
+          }
+
+          status.textContent = data.message || "Trip saved successfully!";
+        } catch (error) {
+          status.textContent = "Error: " + error.message;
+        } finally {
+          button.disabled = false;
+        }
+      }
+
+      function getCookie(name) {
+        const cookies = document.cookie.split(";");
+
+        for (const cookie of cookies) {
+          const trimmed = cookie.trim();
+
+          if (trimmed.startsWith(name + "=")) {
+            return decodeURIComponent(trimmed.substring(name.length + 1));
+          }
+        }
+
+        return "";
+      }
+    </script>
+  </body>
+</html>

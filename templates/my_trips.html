@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Trips | SmartPlace</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f3f7ff;
+        color: #1e293b;
+      }
+
+      header {
+        background: white;
+        padding: 20px 7%;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h2 {
+        color: #2563eb;
+        margin: 0;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .back-btn {
+        color: #2563eb;
+        font-weight: bold;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .page-title {
+        margin-bottom: 25px;
+      }
+
+      .page-title h1 {
+        margin-bottom: 8px;
+      }
+
+      .trip-card {
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+        border: 1px solid #dbeafe;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      }
+
+      .trip-card h2 {
+        color: #2563eb;
+        margin-top: 0;
+      }
+
+      .trip-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .info-box {
+        background: #eff6ff;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .info-box p {
+        margin: 8px 0 0;
+        font-weight: bold;
+      }
+
+      .route-list {
+        padding-left: 20px;
+        line-height: 1.8;
+      }
+
+      .empty-state {
+        text-align: center;
+        background: white;
+        padding: 45px 20px;
+        border-radius: 14px;
+      }
+
+      .plan-btn {
+        display: inline-block;
+        margin-top: 15px;
+        background: #2563eb;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h2>📍 SmartPlace</h2>
+      <a href="{% url 'home' %}" class="back-btn">← Back to Home</a>
+    </header>
+
+    <div class="container">
+      <div class="page-title">
+        <h1>🗺️ My Trips</h1>
+        <p>View all your saved journeys in one place.</p>
+      </div>
+
+      {% if trips %} {% for trip in trips %}
+
+      <div class="trip-card">
+        <h2>📍 {{ trip.title }}</h2>
+
+        <p><strong>From:</strong> {{ trip.start_location }}</p>
+
+        <p><strong>Destination:</strong> {{ trip.destination }}</p>
+
+        <div class="trip-info">
+          <div class="info-box">
+            📏 Total Distance
+            <p>{{ trip.total_distance|floatformat:2 }} km</p>
+          </div>
+
+          <div class="info-box">
+            ⏱️ Estimated Duration
+            <p>{{ trip.total_duration|floatformat:0 }} seconds</p>
+          </div>
+
+          <div class="info-box">
+            📅 Saved On
+            <p>{{ trip.created_at|date:"d M Y" }}</p>
+          </div>
+        </div>
+
+        {% if trip.stops %}
+        <h3>📌 Destinations</h3>
+        <ol class="route-list">
+          {% for stop in trip.stops %}
+          <li>{{ stop }}</li>
+          {% endfor %}
+        </ol>
+        {% endif %} {% if trip.route_details %}
+        <h3>🚗 Route Details</h3>
+        {% for leg in trip.route_details %}
+        <p>
+          <strong>Route {{ forloop.counter }}:</strong>
+          {{ leg.from }} → {{ leg.to }}
+          <br />
+          Distance: {{ leg.distance|floatformat:2 }} km
+          <br />
+          Duration: {{ leg.duration|floatformat:0 }} min
+        </p>
+        <hr />
+        {% endfor %} {% endif %}
+      </div>
+
+      {% endfor %} {% else %}
+
+      <div class="empty-state">
+        <h2>🚗 No Saved Trips Yet</h2>
+        <p>Your saved journeys will appear here.</p>
+        <a href="{% url 'route_planner' %}" class="plan-btn">
+          🗺️ Plan Your Trip
+        </a>
+      </div>
+
+      {% endif %}
+    </div>
+  </body>
+</html>
